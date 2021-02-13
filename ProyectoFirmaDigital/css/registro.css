@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+    scroll-behavior: smooth;
+}
+p{
+    font-weight: 300;
+    color: black;
+}
+body{
+    margin: 0;
+    background-size: cover;
+    background-attachment: fixed;
+}
+/*--------------HEADER--------------*/
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 100px;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.5s;
+}
+header.sticky{
+    background: red;
+    padding: 10px 100px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+header .logo{
+    color: white;
+    font-weight: 700;
+    font-size: 2em;
+    text-decoration: none;
+}
+header.sticky .logo{
+    color: black;
+}
+header .logo span{
+    color: #ff0157;
+}
+header .navigation{
+    position: relative;
+    display: flex;
+}
+header .navigation li{
+    list-style: none;
+    margin-left: 30px;
+}
+header .navigation li a{
+    text-decoration: none;
+    color: white;
+    font-weight: 300;
+}
+header.sticky .navigation li a{
+    color: black;
+}
+header.sticky .navigation li a:hover{
+    color: #ff0157;
+}
+
+/*Registro*/
+form{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+
+/*Footer*/
+.copyright{
+    padding: 8px 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.copyright p{
+    color: #333;
+}
+.copyright a{
+    color: #ff0157;
+    font-weight: 500;
+    text-decoration: none;
+}
