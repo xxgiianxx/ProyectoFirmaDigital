@@ -35,6 +35,20 @@ namespace ProyectoFirmaDigital
             return oAjax;
         }
 
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnListaUbigeo()
+        {
+
+            eAjax oAjax = new eAjax();
+            EmpresaDAOcs dao = new EmpresaDAOcs();
+            string sresult = dao.fnListaUbigeo();
+
+            oAjax.iTipoResultado = 1;
+            oAjax.sValor1 = sresult;
+
+            return oAjax;
+        }
 
 
 

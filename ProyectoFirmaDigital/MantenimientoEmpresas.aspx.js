@@ -1,9 +1,44 @@
-﻿$(document).ready(function () {
+﻿let sDataUbigeo = '';
+
+$(document).ready(function () {
 
     fnListaEmpresa();
-
+    fnListaUbigeo();
 });
 
+$(document).on('click', '#btnNuevo', function () {
+
+    $('#RegistroEmpresa').modal('show');
+    $('#idTitulo').html('Registro Empresa');
+    return false;
+});
+
+function fnListaUbigeo() {
+
+    $.ajax({
+        type: 'POST',
+        url: 'MantenimientoEmpresas.aspx/fnListaUbigeo',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == 1) {
+                sDataUbigeo=data.d.sValor1;
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "../Default.aspx";
+                });
+            } else {
+                bootbox.alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+
+    });
+
+
+}
 function fnListaEmpresa() {
     $.ajax({
         type: 'POST',

@@ -11,7 +11,7 @@ namespace ProyectoFirmaDigital
 {
 
 
-    public partial class Home
+    public partial class Principal
     {
 
         /// <summary>

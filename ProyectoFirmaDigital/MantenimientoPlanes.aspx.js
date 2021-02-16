@@ -199,7 +199,6 @@ function fnArmaTablaDetalle(sData) {
                 Tbody += '<td style="font-size:12px;" class="text-left" >' + fila[1] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-center">' + parseFloat(fila[2]).toFixed(2) + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-center">' + parseFloat(fila[3]).toFixed(2) + '</td>';
-                //Tbody += '<td style="font-size:12px;" class="text-left">' + fila[4] + '</td>';
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaPlan(\'' + fila[0] + '|' + fila[1] + '|' + fila[2] + '|' + fila[3] + '|' + fila[5]+ '\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaPlan(\'' + fila[0] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
                 Tbody += '</tr>';

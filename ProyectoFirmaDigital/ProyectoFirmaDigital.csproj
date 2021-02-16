@@ -75,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Acceso.aspx" />
+    <Content Include="Acceso.aspx.js" />
+    <Content Include="CompraPlan.aspx" />
+    <Content Include="CompraPlan.aspx.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -83,6 +86,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\estilos.css" />
     <Content Include="css\estilosindex.css" />
     <Content Include="css\estilosplanes.css" />
     <Content Include="css\registro.css" />
@@ -113,6 +117,8 @@
     <Content Include="img\undraw_profile_2.svg" />
     <Content Include="img\undraw_profile_3.svg" />
     <Content Include="img\undraw_rocket.svg" />
+    <Content Include="Index.aspx" />
+    <Content Include="JsValidator.js" />
     <Content Include="js\bootbox.js" />
     <Content Include="js\bootbox.min.js" />
     <Content Include="js\bootstrap.js" />
@@ -124,6 +130,8 @@
     <Content Include="js\sb-admin-2.js" />
     <Content Include="js\sb-admin-2.min.js" />
     <Content Include="js\utilitarios.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="Login.aspx.js" />
     <Content Include="MantenimientoEmpresas.aspx.js" />
     <Content Include="MantenimientoEmpresas.aspx" />
     <Content Include="MantenimientoPlanes.aspx" />
@@ -1908,6 +1916,13 @@
     <Compile Include="Acceso.aspx.designer.cs">
       <DependentUpon>Acceso.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CompraPlan.aspx.cs">
+      <DependentUpon>CompraPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompraPlan.aspx.designer.cs">
+      <DependentUpon>CompraPlan.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1917,6 +1932,20 @@
     </Compile>
     <Compile Include="Home.Master.designer.cs">
       <DependentUpon>Home.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="MantenimientoEmpresas.aspx.cs">
       <DependentUpon>MantenimientoEmpresas.aspx</DependentUpon>
