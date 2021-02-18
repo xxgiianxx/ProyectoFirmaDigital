@@ -65,6 +65,7 @@
     <Compile Include="EmpresaDAOcs.cs" />
     <Compile Include="PlanesDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

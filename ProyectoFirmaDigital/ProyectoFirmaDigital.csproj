@@ -136,6 +136,10 @@
     <Content Include="MantenimientoEmpresas.aspx" />
     <Content Include="MantenimientoPlanes.aspx" />
     <Content Include="MantenimientoPlanes.aspx.js" />
+    <Content Include="MantenimientoRoles.aspx" />
+    <Content Include="MantenimientoRoles.aspx.js" />
+    <Content Include="MenuPrincipalCliente.aspx" />
+    <Content Include="ModificarEmpresa.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -160,6 +164,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Home.Master" />
+    <Content Include="HomeCliente.Master" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -1933,6 +1938,13 @@
     <Compile Include="Home.Master.designer.cs">
       <DependentUpon>Home.Master</DependentUpon>
     </Compile>
+    <Compile Include="HomeCliente.Master.cs">
+      <DependentUpon>HomeCliente.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HomeCliente.Master.designer.cs">
+      <DependentUpon>HomeCliente.Master</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1960,6 +1972,27 @@
     </Compile>
     <Compile Include="MantenimientoPlanes.aspx.designer.cs">
       <DependentUpon>MantenimientoPlanes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MantenimientoRoles.aspx.cs">
+      <DependentUpon>MantenimientoRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MantenimientoRoles.aspx.designer.cs">
+      <DependentUpon>MantenimientoRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPrincipalCliente.aspx.cs">
+      <DependentUpon>MenuPrincipalCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuPrincipalCliente.aspx.designer.cs">
+      <DependentUpon>MenuPrincipalCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarEmpresa.aspx.cs">
+      <DependentUpon>ModificarEmpresa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarEmpresa.aspx.designer.cs">
+      <DependentUpon>ModificarEmpresa.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -43,6 +43,7 @@ namespace ProyectoFirmaDigital
                 oe.iIdrol = Convert.ToInt32(vsplit[3]);
                 leSeguridad.Add(oe);
                 HttpContext.Current.Session["leSeguridad"] = leSeguridad;
+                oAjax.sValor1 = vsplit[3];
                 oAjax.iTipoResultado = 1;
 
 
@@ -55,6 +56,31 @@ namespace ProyectoFirmaDigital
            
 
             return oAjax;
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax CerrarSesion()
+        {
+            eAjax oeAjax = new eAjax();
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            context.Response.ContentType = "application/json";
+            try
+            {
+                //var sesion = HttpContext.Current.Session["leSeguridad"];
+
+                HttpContext.Current.Session.Clear();
+                HttpContext.Current.Session.Abandon();
+                HttpContext.Current.Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+                oeAjax.iTipoResultado = 1;
+            }
+            catch (Exception e)
+            {
+                oeAjax.iTipoResultado = 2;
+                oeAjax.sMensajeError = "Ocurrió un error al Cerrar Sesion por favor comuníquese con el administrador del sistema. </br>" + e.ToString();
+            }
+            return oeAjax;
+
         }
 
     }

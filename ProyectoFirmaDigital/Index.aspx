@@ -17,7 +17,7 @@
 <body>
 <!-- navbar -->
 <header>
-    <a href="index.html" class="logo">Nombre<span>.</span></a>
+    <a href="index.html" class="logo">DevSist<span>.</span></a>
     <div class="menuToggle" onclick=" toggleMenu();" style="background: url(img/menu.png);"></div>
     <ul class="navigation">
         <li><a href="index.html" onclick=" toggleMenu();">Inicio</a></li>

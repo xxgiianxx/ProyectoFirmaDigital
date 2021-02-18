@@ -17,7 +17,17 @@ namespace ProyectoFirmaDigital
         {
             if (!Page.IsPostBack)
             {
-                //Cargar codigo solo en la primera carga
+                if (Session["leSeguridad"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+                else
+                {
+                    List<eSeguridad> lsSeguridad = new List<eSeguridad>();
+                    lsSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+                    Label milabel = (Label)Master.FindControl("Nombre");
+                    milabel.Text = lsSeguridad[0].sPersonal;
+                }
             }
 
         }

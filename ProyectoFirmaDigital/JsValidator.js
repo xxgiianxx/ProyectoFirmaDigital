@@ -34,6 +34,30 @@ function fnValidaAcceso() {
 
 }
 
+function fnLimpiaSesion() {
+    $.ajax({
+        type: 'POST',
+        url: 'Login.aspx/CerrarSesion',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == "1") {
+                window.location = "Login.aspx";
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location =  "Login.aspx";
+                });
+            } else {
+                bootbox.alert(result.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+
+    });
+}
+
 function fnValidaLogin(sIdRol) {
 
     if (sIdRol == '1') {

@@ -27,10 +27,16 @@ function AjaxValida(sUsuario, vClave) {
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
                 //bootbox.alert('Bienvenido');
-                window.location = "../Acceso.aspx";
+                if (data.d.sValor1 == '1') {
+                   window.location = "../Acceso.aspx";
+                } else {
+                    window.location = "../MenuPrincipalCliente.aspx";
+                }
+
+
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../Login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace ProyectoFirmaDigital
 {
-    public partial class CompraPlan : System.Web.UI.Page
+    public partial class MenuPrincipalCliente : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,12 +26,8 @@ namespace ProyectoFirmaDigital
                     milabel.Text = lsSeguridad[0].sPersonal;
                 }
             }
-
-
-
         }
 
-        
 
     }
 }

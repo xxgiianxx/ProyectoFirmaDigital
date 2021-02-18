@@ -1,5 +1,4 @@
-﻿<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="ProyectoFirmaDigital.Home" %>--%>
-
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HomeCliente.master.cs" Inherits="ProyectoFirmaDigital.HomeCliente" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,27 +50,31 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0"/>
                         <!-- Heading -->
-            <asp:Panel runat="server" ID="PanelPrincipal">
-            <div class="sidebar-heading">Mantenimiento</div>
-
+            <div class="sidebar-heading">Modificar</div>
 
             <li class="nav-item">
                 <a class="nav-link"  id="MantEmpresa">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Empresa</span></a>
             </li>
-            <li class="nav-item Admin">
+<%--            <li class="nav-item Admin">
                 <a class="nav-link" href="MantenimientoPlanes.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Planes</span></a>
+                    <span>Personal</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="MantenimientoRoles.aspx">
+                <a class="nav-link" href="MantenimientoPlanes.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Roles</span></a>
-            </li>
-            </asp:Panel>
+            </li>--%>
+            
+            <div class="sidebar-heading">Comprar</div>
 
+             <li class="nav-item">
+                <a class="nav-link" href="CompraPlan.aspx">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Plan</span></a>
+            </li>
 
 
             <!-- Divider -->
@@ -128,12 +131,13 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-
-                                <a class="dropdown-item" href="#" data-toggle="modal"  onclick="fnLimpiaSesion();">
+                               
+                                <a class="dropdown-item"  href="#" data-toggle="modal" id="btnCerrarSesion" onclick="fnLimpiaSesion();">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    
-                                    Salir
+                                    Cerrar Session
                                 </a>
+                                                                        
+
                             </div>
                         </li>
 
@@ -168,7 +172,25 @@
     </a>
     </form>
 
-
+    <!-- Logout Modal-->
+<%--    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>--%>
 <%--                    <script src="JsValidator.js"></script>--%>
 
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -182,6 +204,7 @@
     <script src="js/bootbox.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
+
 </body>
 
 </html>

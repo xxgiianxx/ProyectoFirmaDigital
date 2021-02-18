@@ -53,10 +53,13 @@ namespace ProyectoFirmaDigital
 
                 List<eSeguridad> lsSeguridad = new List<eSeguridad>();
                 lsSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
-                string sIdRol = Convert.ToString(lsSeguridad[0].iIdrol);
+
+                 string sIdRol = Convert.ToString(lsSeguridad[0].iIdrol);
                 oAjax.iTipoResultado = 1;
                 oAjax.sValor1 = sIdRol;
-                return oAjax;
+
+             return oAjax;
+                
             }
 
 
