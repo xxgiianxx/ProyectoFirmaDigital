@@ -29,38 +29,25 @@ namespace ProyectoFirmaDigital
                     string sIdRol = Convert.ToString(lsSeguridad[0].iIdrol);
 
 
-                    if (sIdRol == "1")
-                    {
-
-                        Panel panel = (Panel)Master.FindControl("PanelPrincipal");
-                        milabel.Visible = true;
-                    }
-                    else
-                    {
-
-                        Panel panel = (Panel)Master.FindControl("PanelPrincipal");
-                        milabel.Visible = false;
-                    }
-
                 }
             }
         }
-            [WebMethod]
-            [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-            public static eAjax fnListaPlanes()
-            {
-                eAjax oAjax = new eAjax();
+            //[WebMethod]
+            //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+            //public static eAjax fnListaPlanes()
+            //{
+            //    eAjax oAjax = new eAjax();
 
-                List<eSeguridad> lsSeguridad = new List<eSeguridad>();
-                lsSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+            //    List<eSeguridad> lsSeguridad = new List<eSeguridad>();
+            //    lsSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+            //   var i= fnactualiza();
+            //     string sIdRol = Convert.ToString(lsSeguridad[0].iIdrol);
+            //    oAjax.iTipoResultado = 1;
+            //    oAjax.sValor1 = sIdRol;
 
-                 string sIdRol = Convert.ToString(lsSeguridad[0].iIdrol);
-                oAjax.iTipoResultado = 1;
-                oAjax.sValor1 = sIdRol;
-
-             return oAjax;
+            // return oAjax;
                 
-            }
+            //}
 
 
         }

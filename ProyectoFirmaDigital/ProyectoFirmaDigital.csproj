@@ -92,6 +92,7 @@
     <Content Include="css\registro.css" />
     <Content Include="css\sb-admin-2.css" />
     <Content Include="css\sb-admin-2.min.css" />
+    <Content Include="DocumentoFirma.aspx" />
     <Content Include="Global.asax" />
     <Content Include="img\banner.png" />
     <Content Include="img\bg.jpg" />
@@ -1927,6 +1928,13 @@
     </Compile>
     <Compile Include="CompraPlan.aspx.designer.cs">
       <DependentUpon>CompraPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentoFirma.aspx.cs">
+      <DependentUpon>DocumentoFirma.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DocumentoFirma.aspx.designer.cs">
+      <DependentUpon>DocumentoFirma.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

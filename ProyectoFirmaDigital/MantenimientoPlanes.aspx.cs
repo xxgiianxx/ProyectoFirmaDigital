@@ -33,6 +33,8 @@ namespace ProyectoFirmaDigital
         }
 
 
+
+
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static eAjax fnListaPlanes()
@@ -40,13 +42,12 @@ namespace ProyectoFirmaDigital
 
             eAjax oAjax = new eAjax();
             PlanesDAO dao = new PlanesDAO();
-            string sresult = dao.fnListaPlanes();
-            oAjax.iTipoResultado = 1;
-            oAjax.sValor1 = sresult;
+            string iresult = dao.fnListaPlanes();
 
+            oAjax.iTipoResultado = 1;
+            oAjax.sValor1 = iresult;
             return oAjax;
         }
-
 
 
 
