@@ -1,7 +1,10 @@
 ﻿let sDataPlanes = '';
 let sCantidadComprada = '';
+let sCodplan = '';
+
 $(document).ready(function () {
     fnListaPlanes();
+    fnListaSaldoFirma();
 
     fnArmaEstructuraPlan();
 });
@@ -33,6 +36,8 @@ function fnListaPlanes() {
 }
 
 function fnCompraPlan(sParametros) {
+    sCantidadComprada = '';
+    sCodplan = '';
     var vsplit = sParametros.split('|');
     sCantidadComprada = vsplit[2];
     $('#txtTotalPagar').val(vsplit[1]);
@@ -40,11 +45,122 @@ function fnCompraPlan(sParametros) {
 
 }
 
-function fnActualizaSaldoFirma(iCantidad) {
-    var sParametro = "{'iCantidad':'" + iCantidad+"'}";
+function fnListaSaldoFirma() {
     $.ajax({
         type: 'POST',
-        url: 'CompraPlan.aspx/fnActualizaPlan',
+        url: 'CompraPlan.aspx/fnListaSaldoFirma',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == 1) {
+                $('#txtDisponible').html(data.d.sValor1);
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "../login.aspx";
+                });
+            } else {
+                bootbox.alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+
+    });
+
+}
+
+//function fnActualizaSaldoFirma(iCantidad) {
+//    var sParametro = "{'iCantidad':'" + iCantidad+"'}";
+//    $.ajax({
+//        type: 'POST',
+//        url: 'CompraPlan.aspx/fnActualizaPlan',
+//        contentType: 'application/json; utf-8',
+//        dataType: 'json',
+//        data: sParametro,
+//        async: false,
+//        success: function (data) {
+//            if (data.d.iTipoResultado == 1) {
+//                bootbox.alert('Compra Exitosa');
+//                $('#txtDisponible').html(iCantidad);
+//                $('#MetodoPago').modal('hide');
+//            } else if (data.d.iTipoResultado == 99) {
+//                bootbox.alert(data.d.sMensajeError, function () {
+//                    window.location = "../Acceso.aspx";
+//                });
+//            } else {
+//                bootbox.alert(data.d.sMensajeError);
+//            }
+//        },
+//        error: function (jqXHR, textStatus, errorThrown) {
+//        }
+
+//    });
+
+//}
+
+$(document).on('click', '#btnConfirmarCompra', function () {
+
+    var vMarca = $('#cmbTipoPago').val();
+    var vNroTarjeta = $('#txtNroTarjeta').val();
+    var vTitula = $('#txtNombreTarjeta').val();
+    var vMes = $('#Mes').val();
+    var vYear = $('#Year').val();
+    var vCvv = $('#txtCvv').val();
+
+
+    
+    if (vMarca == '0') {
+
+        bootbox.alert('Seleccione Una Marca de Tarjeta');
+        return false;
+    }
+
+    if (vNroTarjeta == '' || vTitula == '' || vMes == '' || vYear == '' || vCvv == '') {
+        bootbox.alert('Verifique que todos los campos esten llenados');
+        return false;
+    }
+
+
+    fnRegistracompra(sCodplan, vNroTarjeta);
+
+});
+
+function fnRegistracompra(iIdPlan,sMarca){
+
+
+    bootbox.confirm({
+        message: "Esta Seguro de Realizar La Compra Del Plan Seleccionado?<br> <span style='color:red;'> Una vez procesado el pago, no se realizarán reembolsos. </span> ",
+        buttons: {
+
+            confirm: {
+                label: '<i class="glyphicon glyphicon-ok"></i> Si',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: '<i class="glyphicon glyphicon-remove"></i> No',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                fnRegistraCompraplan(iIdPlan, sMarca);
+            } else {
+                $('#MetodoPago').modal('hide');
+                bootbox.alert("Compra Cancelada");
+            }
+        }
+    });
+
+
+}
+function fnRegistraCompraplan(iIdPlan,sMarca) {
+
+
+    var sParametro = "{'iIdPlan':'" + iIdPlan + "','sMarca':'" + sMarca + "'}";
+    $.ajax({
+        type: 'POST',
+        url: 'CompraPlan.aspx/fnCompraPlan',
         contentType: 'application/json; utf-8',
         dataType: 'json',
         data: sParametro,
@@ -66,44 +182,6 @@ function fnActualizaSaldoFirma(iCantidad) {
         }
 
     });
-
-}
-
-$(document).on('click', '#btnConfirmarCompra', function () {
-
-
-
-    bootbox.confirm({
-        message: "Esta Seguro de Realizar La Compra Del Plan Seleccionado?<br> <span style='color:red;'> Una vez procesado el pago, no se realizarán reembolsos. </span> ",
-        buttons: {
-
-            confirm: {
-                label: '<i class="glyphicon glyphicon-ok"></i> Si',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '<i class="glyphicon glyphicon-remove"></i> No',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                fnRegistraCompraplan();
-            } else {
-                $('#MetodoPago').modal('hide');
-                bootbox.alert("Compra Cancelada");
-            }
-        }
-    });
-
-
-
-});
-
-
-function fnRegistraCompraplan() {
-
-    fnActualizaSaldoFirma(sCantidadComprada);
 
 
 

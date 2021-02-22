@@ -15,14 +15,18 @@
                                    <span class="text">Nuevo</span>
                               </a>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color:black">
                                     <thead>
                                         <tr>
-                                            <th style="font-size:12px;" class="text-center" >Descripcion</th>
+                                            <th style="font-size:12px;" class="text-center" >Descripción</th>
                                             <th style="font-size:12px;" class="text-center">Cantidad</th>
                                             <th style="font-size:12px;" class="text-center">Precio</th>
 <%--                                            <th style="font-size:12px;" class="text-center">Estado</th>--%>
-                                            <th style="font-size:12px;width:1%;"class="text-center" colspan="2"> Accion</th>
+<%--                                            <th style="font-size:12px;width:1%;"class="text-center" colspan="2"> Accion</th>--%>
+                                              <th style="font-size:12px;width:1%;" class="text-center">Modificar</th>
+                                              <th style="font-size:12px;width:1%;" class="text-center" >Eliminar</th>
+
+
                                         </tr>
                                     </thead>
                                     <tbody id="dtTablaPlanes">
@@ -73,7 +77,7 @@
                               <div class="input-group-prepend">
                                   <span class="input-group-text" >Cantidad</span>
                              </div>
-                            <input type="number" class="form-control" required  id="txtCantidad" >
+                            <input type="number" class="form-control" required  id="txtCantidad"  step="1">
                       </div>
                    </div>
                <div class="col">
@@ -93,7 +97,7 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary Registrar" id="btnRegistrar">Registrar</a>
-                     <a class="btn btn-primary Editar" id="btnModificar">Modificar</a>
+                     <a class="btn btn-primary Editar" id="btnModificar">Guardar</a>
 
                 </div>
             </div>

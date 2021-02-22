@@ -85,10 +85,14 @@ function fnArmaTablaDetalle(sData) {
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[1] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[2] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[3] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[4] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[5] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[6] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[7] + '</td>';
+                var vestado = '';
+                if (fila[4] == '1') {
+                    vestado='ACTIVO';
+                } else {
+                    vestado='INACTIVO';
+                }
+                Tbody += '<td style="font-size:12px;" class="text-left">' + vestado + '</td>';
+
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
                 Tbody += '</tr>';

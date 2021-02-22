@@ -18,6 +18,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet"/>
+        <script src="vendor/jquery/jquery.js"></script>
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet"/>
@@ -57,7 +58,7 @@
                                                 id="txtClave" placeholder="Contraseña" >
                                         </div>
 
-                                        <a href="#" class="btn btn-primary btn-user btn-block" id="btnIngresar" onclick="fnIngresar() ;return false">
+                                        <a href="#" class="btn btn-primary btn-user btn-block" id="btnIngresar">
                                             Ingresar
                                         </a>
 
@@ -88,7 +89,6 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>

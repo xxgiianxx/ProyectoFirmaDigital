@@ -25,6 +25,7 @@
                                             <th style="font-size:12px;" class="text-center">Personal Firma</th>
                                             <th style="font-size:12px;" class="text-center">Personal Carga</th>
                                             <th style="font-size:12px;" class="text-center">Fecha Firma</th>
+
                                         </tr>
                                     </thead>
                                     <tbody id="dtTablaEmpresa">

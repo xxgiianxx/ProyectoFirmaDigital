@@ -21,13 +21,13 @@
                                         <tr>
                                             <th style="font-size:12px;" class="text-center">Razon Social </th>
                                             <th style="font-size:12px;" class="text-center">Ruc</th>
-                                            <th style="font-size:12px;" class="text-center">Departamento</th>
-                                            <th style="font-size:12px;" class="text-center">Provincia</th>
-                                            <th style="font-size:12px;" class="text-center">Distrito</th>
+<%--                                            <th style="font-size:12px;" class="text-center">Departamento</th>--%>
                                             <th style="font-size:12px;" class="text-center">Direccion</th>
                                             <th style="font-size:12px;" class="text-center">Correo</th>
                                             <th style="font-size:12px;" class="text-center">Estado</th>
-                                            <th style="font-size:12px;"class="text-center" colspan="2"> Accion</th>
+                                            <th style="font-size:12px;"class="text-center"> Modificar</th>
+                                            <th style="font-size:12px;"class="text-center"> Eliminar</th>
+
 <%--                                            <th style="font-size:12px;" class="text-center">Eliminar</th>--%>
 
                                         </tr>

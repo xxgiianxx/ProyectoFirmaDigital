@@ -41,9 +41,12 @@ namespace ProyectoFirmaDigital
                 oe.strPassword = vsplit[1];
                 oe.sPersonal = vsplit[2];
                 oe.iIdrol = Convert.ToInt32(vsplit[3]);
+                oe.iIdCargo = Convert.ToInt32(vsplit[4]);
+                oe.iIdEmpresa = Convert.ToInt32(vsplit[5]);
+                oe.sNombreEmpresa = Convert.ToString(vsplit[6]);
                 leSeguridad.Add(oe);
                 HttpContext.Current.Session["leSeguridad"] = leSeguridad;
-                oAjax.sValor1 = vsplit[3];
+                oAjax.sValor1 = vsplit[3]+'|'+ vsplit[4];
                 oAjax.iTipoResultado = 1;
 
 

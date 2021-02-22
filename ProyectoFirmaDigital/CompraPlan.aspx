@@ -71,7 +71,7 @@
                          <div class="input-group-prepend">
                           <span class="input-group-text">Nro Tarjeta</span>
                            </div>
-                              <input type="text" class="form-control" required  id="txtNroTarjeta" >
+                              <input type="text" class="form-control" required  id="txtNroTarjeta" maxlength="16">
                          </div>
                        </div>
                   </div>
@@ -91,7 +91,7 @@
                          <div class="input-group-prepend">
                           <span class="input-group-text">Fecha Vencimiento</span>
                            </div>
-                          <select  id="creditCardpayment-card-0Month" name="cardExpirationMonth">
+                          <select  id="Mes" name="cardExpirationMonth">
                             <option value="">MM</option>
                               <option value="01">01</option>
                               <option value="02">02</option>
@@ -106,7 +106,7 @@
                               <option value="11">11</option>
                               <option value="12">12</option>
                           </select> 
-                           <select id="creditCardpayment-card-0Year" name="cardExpirationYear">
+                           <select id="Year" name="cardExpirationYear">
                                <option value="">AA</option>
                                <option value="21">21</option>
                                <option value="22">22</option>

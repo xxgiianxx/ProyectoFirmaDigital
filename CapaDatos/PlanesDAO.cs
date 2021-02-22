@@ -98,6 +98,34 @@ namespace CapaDatos
 
         }
 
+        public int fnListafirmaDisponibles(int iIdEmpresa)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            int sResult = -1;
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spListaFirmasDisponibles", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = iIdEmpresa;
+                conexion.Open();
+                sResult = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception ex)
+            {
+                sResult = -1;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return sResult;
+
+        }
+
         public int fnEliminaPlan(int iIdPlan)
         {
             SqlConnection conexion = null;
