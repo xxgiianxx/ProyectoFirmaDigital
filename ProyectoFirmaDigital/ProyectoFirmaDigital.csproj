@@ -148,6 +148,7 @@
     <Content Include="MantenimientoPlanes.aspx.js" />
     <Content Include="MantenimientoRoles.aspx" />
     <Content Include="MantenimientoRoles.aspx.js" />
+    <Content Include="MantenimientoTrabajadores.aspx" />
     <Content Include="MenuPrincipalCliente.aspx" />
     <Content Include="ModificarEmpresa.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -2005,6 +2006,13 @@
     </Compile>
     <Compile Include="MantenimientoRoles.aspx.designer.cs">
       <DependentUpon>MantenimientoRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MantenimientoTrabajadores.aspx.cs">
+      <DependentUpon>MantenimientoTrabajadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MantenimientoTrabajadores.aspx.designer.cs">
+      <DependentUpon>MantenimientoTrabajadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="MenuPrincipalCliente.aspx.cs">
       <DependentUpon>MenuPrincipalCliente.aspx</DependentUpon>
