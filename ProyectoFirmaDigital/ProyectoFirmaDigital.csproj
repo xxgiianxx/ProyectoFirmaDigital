@@ -148,6 +148,7 @@
     <Content Include="MantenimientoPlanes.aspx.js" />
     <Content Include="MantenimientoRoles.aspx" />
     <Content Include="MantenimientoRoles.aspx.js" />
+    <Content Include="MantenimientoTrabajadores.aspx.js" />
     <Content Include="MantenimientoTrabajadores.aspx" />
     <Content Include="MenuPrincipalCliente.aspx" />
     <Content Include="ModificarEmpresa.aspx" />

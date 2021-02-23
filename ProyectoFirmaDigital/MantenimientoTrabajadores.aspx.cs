@@ -1,9 +1,18 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 
 namespace ProyectoFirmaDigital
 {
@@ -11,7 +20,134 @@ namespace ProyectoFirmaDigital
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            /*
+            if (!Page.IsPostBack)
+            {
+                if (Session["leSeguridad"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+                else
+                {
+                    List<eSeguridad> lsSeguridad = new List<eSeguridad>();
+                    lsSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+                    Label milabel = (Label)Master.FindControl("Nombre");
+                    milabel.Text = lsSeguridad[0].sPersonal;
+                }
+            }
+            */
         }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnListaTrabajadores()
+        {
+
+            eAjax oAjax = new eAjax();
+            TrabajadorDAO dao = new TrabajadorDAO();
+            string iresult = dao.fnListaTrabajadores();
+
+            oAjax.iTipoResultado = 1;
+            oAjax.sValor1 = iresult;
+            return oAjax;
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnRegistraTrabajador(int iIdTrabajador,
+            string vNombre,
+            string vApellidoPaterno,
+            string vApellidoMaterno,
+            string NroDocumento,
+            string vClave,
+            int vTelefono,
+            int iIdRol,
+            int iEstado)
+        {
+
+            eAjax oAjax = new eAjax();
+            TrabajadorDAO dao = new TrabajadorDAO();
+            int iresult = dao.fnRegistraTrabajador(iIdTrabajador,
+                vNombre, 
+                vApellidoPaterno, 
+                vApellidoMaterno, 
+                NroDocumento,
+                vClave,
+                vTelefono,
+                iIdRol,
+                iEstado);
+            if (iresult > 0)
+            {
+                oAjax.iTipoResultado = 1;
+
+            }
+            else
+            {
+                oAjax.iTipoResultado = -1;
+                oAjax.sMensajeError = "Ocurrio Un Error Al Registrar Plan";
+            }
+
+            return oAjax;
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnActualizaTrabajador(int iIdTrabajador,
+            string vNombre,
+            string vApellidoPaterno,
+            string vApellidoMaterno,
+            string NroDocumento,
+            string vClave,
+            int vTelefono,
+            int iIdRol,
+            int iEstado)
+        {
+
+            eAjax oAjax = new eAjax();
+            TrabajadorDAO dao = new TrabajadorDAO();
+            int iresult = dao.fnActualizaTrabajador(iIdTrabajador,
+                vNombre,
+                vApellidoPaterno,
+                vApellidoMaterno,
+                NroDocumento,
+                vClave,
+                vTelefono,
+                iIdRol,
+                iEstado);
+            if (iresult > 0)
+            {
+                oAjax.iTipoResultado = 1;
+            }
+            else
+            {
+                oAjax.iTipoResultado = -1;
+                oAjax.sMensajeError = "Ocurrio Un Error Al Actualizar Plan";
+            }
+
+            return oAjax;
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnEliminaTrabajador(int iIdTrabajador)
+        {
+
+            eAjax oAjax = new eAjax();
+            TrabajadorDAO dao = new TrabajadorDAO();
+            int iresult = dao.fnEliminaTrabajador(iIdTrabajador);
+            if (iresult > 0)
+            {
+                oAjax.iTipoResultado = 1;
+            }
+            else
+            {
+                oAjax.iTipoResultado = -1;
+                oAjax.sMensajeError = "Ocurrio Un Error Al Eliminar Plan";
+            }
+
+            return oAjax;
+        }
+
+
     }
 }
