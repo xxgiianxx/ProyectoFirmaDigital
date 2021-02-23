@@ -67,6 +67,35 @@ namespace CapaDatos
 
         }
 
+        public int fnCompraPlan(int iIdEmpresa,int iIdPlan,int iIdMarca,decimal dTotal,int iCantidadFirmas) {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            int sResult = -1;
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spInsertaVenta", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = iIdEmpresa;
+                cmd.Parameters.Add("@iIdPlan", SqlDbType.Int).Value = iIdPlan;
+                cmd.Parameters.Add("@iIdMarca", SqlDbType.Int).Value = iIdMarca;
+                cmd.Parameters.Add("@dTotal", SqlDbType.Decimal).Value = dTotal;
+                cmd.Parameters.Add("@iCantidadFirmas", SqlDbType.Int).Value = iCantidadFirmas;
+                conexion.Open();
+                sResult = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception ex)
+            {
+                sResult = -1;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return sResult;
+        }
         public int fnActualizaPlan(int iIdPlan,string sDescripcion, int iCantidad, decimal dPrecio)
         {
             SqlConnection conexion = null;

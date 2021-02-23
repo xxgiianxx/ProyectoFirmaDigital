@@ -1,9 +1,9 @@
 ﻿//$(window).load(function () {
 //    fnValidaAcceso();
 //});
-window.addEventListener("load", function (event) {
-    fnValidaAcceso();
-});
+//window.addEventListener("load", function (event) {
+//    fnValidaAcceso();
+//});
 //$(document).ready(function () {
 //    fnValidaAcceso();
 //});

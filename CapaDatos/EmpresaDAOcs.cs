@@ -12,7 +12,7 @@ namespace CapaDatos
     {
 
 
-        public string fnListaEmpresa() {
+        public string fnListaEmpresa(string sEstado) {
           SqlConnection conexion = null;
             SqlCommand cmd = null;
             string sResult = "";
@@ -21,6 +21,7 @@ namespace CapaDatos
                 conexion = Conexion.getInstance().ConexionBD();
                 cmd = new SqlCommand("spListaEmpresa", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@vEstado", SqlDbType.VarChar).Value = sEstado;
                 conexion.Open();
                 sResult = Convert.ToString(cmd.ExecuteScalar());
 
@@ -67,6 +68,34 @@ namespace CapaDatos
 
         }
 
+
+        public int fnEliminaEmpresa(int iIdEmpresa)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            int sResult = -1;
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spEliminaEmpresa", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.VarChar).Value = iIdEmpresa;
+                conexion.Open();
+                sResult = Convert.ToInt32(cmd.ExecuteScalar());
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return sResult;
+
+        }
 
         public string fnListaUbigeo()
         {

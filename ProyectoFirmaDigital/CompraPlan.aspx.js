@@ -1,7 +1,7 @@
 ﻿let sDataPlanes = '';
 let sCantidadComprada = '';
 let sCodplan = '';
-
+let sPrecio = 0;
 $(document).ready(function () {
     fnListaPlanes();
     fnListaSaldoFirma();
@@ -22,7 +22,7 @@ function fnListaPlanes() {
                 sDataPlanes=data.d.sValor1;
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -38,9 +38,32 @@ function fnListaPlanes() {
 function fnCompraPlan(sParametros) {
     sCantidadComprada = '';
     sCodplan = '';
+    sPrecio = 0;
     var vsplit = sParametros.split('|');
     sCantidadComprada = vsplit[2];
+    sCodplan = vsplit[0];
+    sPrecio = vsplit[1];
     $('#txtTotalPagar').val(vsplit[1]);
+
+    $('#cmbTipoPago').val('');
+    $('#cmbTipoPago').change();
+    $('#txtNroTarjeta').val('');
+    $('#txtNombreTarjeta').val('');
+    $('#Mes').val('');
+    $('#Mes').change();
+
+    $('#Year').val('');
+    $('#Year').change();
+
+    $('#txtCvv').val('');
+
+
+   
+    
+
+
+
+
     $('#MetodoPago').modal('show');
 
 }
@@ -122,7 +145,7 @@ $(document).on('click', '#btnConfirmarCompra', function () {
     }
 
 
-    fnRegistracompra(sCodplan, vNroTarjeta);
+    fnRegistracompra(sCodplan, vMarca);
 
 });
 
@@ -157,7 +180,7 @@ function fnRegistracompra(iIdPlan,sMarca){
 function fnRegistraCompraplan(iIdPlan,sMarca) {
 
 
-    var sParametro = "{'iIdPlan':'" + iIdPlan + "','sMarca':'" + sMarca + "'}";
+    var sParametro = "{'iIdPlan':'" + iIdPlan + "','sMarca':'" + sMarca + "','dTotal':'" + sPrecio + "','iCantidadFirmas':'" + sCantidadComprada+"'}";
     $.ajax({
         type: 'POST',
         url: 'CompraPlan.aspx/fnCompraPlan',
@@ -168,11 +191,11 @@ function fnRegistraCompraplan(iIdPlan,sMarca) {
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
                 bootbox.alert('Compra Exitosa');
-                $('#txtDisponible').html(iCantidad);
+                fnListaSaldoFirma();
                 $('#MetodoPago').modal('hide');
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../Login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);

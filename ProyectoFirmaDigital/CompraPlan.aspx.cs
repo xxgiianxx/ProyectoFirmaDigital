@@ -81,7 +81,7 @@ namespace ProyectoFirmaDigital
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static eAjax fnCompraPlan(int iIdPlan,int sMarca)
+        public static eAjax fnCompraPlan(int iIdPlan,int sMarca,decimal dTotal,int iCantidadFirmas)
         {
             eAjax oeAjax = new eAjax();
             System.Web.HttpContext context = System.Web.HttpContext.Current;
@@ -97,10 +97,10 @@ namespace ProyectoFirmaDigital
                 List<eSeguridad> lstSeguridad = new List<eSeguridad>();
                 lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
                 string sUsuarioAuditoria = lstSeguridad[0].strUsuario;
-                int iIdEmpres = Convert.ToInt32(lstSeguridad[0].iIdEmpresa);
+                int iIdEmpresa = Convert.ToInt32(lstSeguridad[0].iIdEmpresa);
 
                 PlanesDAO dao = new PlanesDAO();
-                int iresult = dao.fnListafirmaDisponibles(iIdEmpres);
+                int iresult = dao.fnCompraPlan(iIdEmpresa, iIdPlan, sMarca, dTotal, iCantidadFirmas);
                 oeAjax.iTipoResultado = 1;
                 oeAjax.sValor1 = Convert.ToString(iresult);
 
