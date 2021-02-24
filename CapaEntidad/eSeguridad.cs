@@ -10,9 +10,12 @@ namespace CapaEntidad
     {
         public string strUsuario { get; set; }
         public string strPassword { get; set; }
-
         public string sPersonal { get; set; }
-
         public int iIdrol { get; set; }
+        public int iIdCargo { get; set; }
+        public int iIdEmpresa { get; set; }
+        public string sNombreEmpresa { get; set; }
+    
+    
     }
 }

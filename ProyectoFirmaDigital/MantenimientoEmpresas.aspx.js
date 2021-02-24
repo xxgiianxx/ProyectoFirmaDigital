@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 
-    fnListaEmpresa();
+    fnListaEmpresa(1);
     fnListaUbigeo();
 });
 
@@ -26,7 +26,7 @@ function fnListaUbigeo() {
                 sDataUbigeo=data.d.sValor1;
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Default.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -39,19 +39,22 @@ function fnListaUbigeo() {
 
 
 }
-function fnListaEmpresa() {
+function fnListaEmpresa(sEstado) {
+
+    var sParametro = "{'sEstado':'"+sEstado+"'}";
     $.ajax({
         type: 'POST',
         url: 'MantenimientoEmpresas.aspx/fnListaEmpresas',
         contentType: 'application/json; utf-8',
         dataType: 'json',
+        data: sParametro,
         async: false,
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
                 fnArmaTablaDetalle(data.d.sValor1);
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Default.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -63,12 +66,44 @@ function fnListaEmpresa() {
     });
 
 }
-function fnEditaEmpresa(sParametro) {
-
-
+function fnSoloActivos() {
+    fnListaEmpresa(1);
+    return false;
 }
-function fnEliminaEmpresa(sParametro) {
 
+function fnSoloInactivos() {
+    fnListaEmpresa(0);
+    return false;
+}
+
+
+function fnEliminaEmpresa(sCodigo) {
+    var sParametro = "{'sCodigo':'" + sCodigo + "'}";
+    $.ajax({
+        type: 'POST',
+        url: 'MantenimientoEmpresas.aspx/fnEliminaEmpresa',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        data: sParametro,
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == 1) {
+                bootbox.alert('Empresa Inactivada Correctamente');
+                fnListaEmpresa(1);
+
+
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "../login.aspx";
+                });
+            } else {
+                bootbox.alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+
+    });
 
 }
 
@@ -85,11 +120,15 @@ function fnArmaTablaDetalle(sData) {
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[1] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[2] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[3] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[4] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[5] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[6] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[7] + '</td>';
-                Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
+                var vestado = '';
+                if (fila[4] == '1') {
+                    vestado='ACTIVO';
+                } else {
+                    vestado='INACTIVO';
+                }
+                Tbody += '<td style="font-size:12px;" class="text-left">' + vestado + '</td>';
+
+                //Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
                 Tbody += '</tr>';
                 h++;
@@ -97,9 +136,9 @@ function fnArmaTablaDetalle(sData) {
 
             $("#dtTablaEmpresa").html(Tbody);
         } else {
-            $("#dtTablaEmpresa").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
+            $("#dtTablaEmpresa").html("<tr><td colspan='2'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
         }
     } else {
-        $("#dtTablaEmpresa").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
+        $("#dtTablaEmpresa").html("<tr><td colspan='2'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
     }
 }

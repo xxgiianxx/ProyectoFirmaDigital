@@ -1,7 +1,10 @@
 ﻿let sDataPlanes = '';
 let sCantidadComprada = '';
+let sCodplan = '';
+let sPrecio = 0;
 $(document).ready(function () {
     fnListaPlanes();
+    fnListaSaldoFirma();
 
     fnArmaEstructuraPlan();
 });
@@ -19,7 +22,7 @@ function fnListaPlanes() {
                 sDataPlanes=data.d.sValor1;
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -33,30 +36,51 @@ function fnListaPlanes() {
 }
 
 function fnCompraPlan(sParametros) {
+    sCantidadComprada = '';
+    sCodplan = '';
+    sPrecio = 0;
     var vsplit = sParametros.split('|');
     sCantidadComprada = vsplit[2];
+    sCodplan = vsplit[0];
+    sPrecio = vsplit[1];
     $('#txtTotalPagar').val(vsplit[1]);
+
+    $('#cmbTipoPago').val('');
+    $('#cmbTipoPago').change();
+    $('#txtNroTarjeta').val('');
+    $('#txtNombreTarjeta').val('');
+    $('#Mes').val('');
+    $('#Mes').change();
+
+    $('#Year').val('');
+    $('#Year').change();
+
+    $('#txtCvv').val('');
+
+
+   
+    
+
+
+
+
     $('#MetodoPago').modal('show');
 
 }
 
-function fnActualizaSaldoFirma(iCantidad) {
-    var sParametro = "{'iCantidad':'" + iCantidad+"'}";
+function fnListaSaldoFirma() {
     $.ajax({
         type: 'POST',
-        url: 'CompraPlan.aspx/fnActualizaPlan',
+        url: 'CompraPlan.aspx/fnListaSaldoFirma',
         contentType: 'application/json; utf-8',
         dataType: 'json',
-        data: sParametro,
         async: false,
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
-                bootbox.alert('Compra Exitosa');
-                $('#txtDisponible').html(iCantidad);
-                $('#MetodoPago').modal('hide');
+                $('#txtDisponible').html(data.d.sValor1);
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -69,8 +93,63 @@ function fnActualizaSaldoFirma(iCantidad) {
 
 }
 
+//function fnActualizaSaldoFirma(iCantidad) {
+//    var sParametro = "{'iCantidad':'" + iCantidad+"'}";
+//    $.ajax({
+//        type: 'POST',
+//        url: 'CompraPlan.aspx/fnActualizaPlan',
+//        contentType: 'application/json; utf-8',
+//        dataType: 'json',
+//        data: sParametro,
+//        async: false,
+//        success: function (data) {
+//            if (data.d.iTipoResultado == 1) {
+//                bootbox.alert('Compra Exitosa');
+//                $('#txtDisponible').html(iCantidad);
+//                $('#MetodoPago').modal('hide');
+//            } else if (data.d.iTipoResultado == 99) {
+//                bootbox.alert(data.d.sMensajeError, function () {
+//                    window.location = "../Acceso.aspx";
+//                });
+//            } else {
+//                bootbox.alert(data.d.sMensajeError);
+//            }
+//        },
+//        error: function (jqXHR, textStatus, errorThrown) {
+//        }
+
+//    });
+
+//}
+
 $(document).on('click', '#btnConfirmarCompra', function () {
 
+    var vMarca = $('#cmbTipoPago').val();
+    var vNroTarjeta = $('#txtNroTarjeta').val();
+    var vTitula = $('#txtNombreTarjeta').val();
+    var vMes = $('#Mes').val();
+    var vYear = $('#Year').val();
+    var vCvv = $('#txtCvv').val();
+
+
+    
+    if (vMarca == '0') {
+
+        bootbox.alert('Seleccione Una Marca de Tarjeta');
+        return false;
+    }
+
+    if (vNroTarjeta == '' || vTitula == '' || vMes == '' || vYear == '' || vCvv == '') {
+        bootbox.alert('Verifique que todos los campos esten llenados');
+        return false;
+    }
+
+
+    fnRegistracompra(sCodplan, vMarca);
+
+});
+
+function fnRegistracompra(iIdPlan,sMarca){
 
 
     bootbox.confirm({
@@ -88,7 +167,7 @@ $(document).on('click', '#btnConfirmarCompra', function () {
         },
         callback: function (result) {
             if (result) {
-                fnRegistraCompraplan();
+                fnRegistraCompraplan(iIdPlan, sMarca);
             } else {
                 $('#MetodoPago').modal('hide');
                 bootbox.alert("Compra Cancelada");
@@ -97,13 +176,35 @@ $(document).on('click', '#btnConfirmarCompra', function () {
     });
 
 
+}
+function fnRegistraCompraplan(iIdPlan,sMarca) {
 
-});
 
+    var sParametro = "{'iIdPlan':'" + iIdPlan + "','sMarca':'" + sMarca + "','dTotal':'" + sPrecio + "','iCantidadFirmas':'" + sCantidadComprada+"'}";
+    $.ajax({
+        type: 'POST',
+        url: 'CompraPlan.aspx/fnCompraPlan',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        data: sParametro,
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == 1) {
+                bootbox.alert('Compra Exitosa');
+                fnListaSaldoFirma();
+                $('#MetodoPago').modal('hide');
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "../Login.aspx";
+                });
+            } else {
+                bootbox.alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
 
-function fnRegistraCompraplan() {
-
-    fnActualizaSaldoFirma(sCantidadComprada);
+    });
 
 
 

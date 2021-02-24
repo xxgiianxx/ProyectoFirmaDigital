@@ -1,10 +1,18 @@
-﻿
+﻿$(document).ready(function () {
+
+
+$(this).on('click', '#btnIngresar',function() {
+    fnIngresar();
+    return false;
+
+});
+
+
+});
 function fnIngresar() {
 
     var vUsuario = $('#txtUsuario').val();
     var vClave = $('#txtClave').val();
-
-
     if (vUsuario == '' || vClave == '') {
 
         bootbox.alert('Complete Los Campos');
@@ -26,13 +34,17 @@ function AjaxValida(sUsuario, vClave) {
         async: false,
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
-                //bootbox.alert('Bienvenido');
-                if (data.d.sValor1 == '1') {
-                   window.location = "../Acceso.aspx";
+                var vsplit = (data.d.sValor1).split('|');
+                if (vsplit[0] == '1') {
+                    window.location = "../Acceso.aspx";//admin acceso
                 } else {
-                    window.location = "../MenuPrincipalCliente.aspx";
+                    if (vsplit[1] == 2) {//Gestor
+                       
+                     window.location = "../MenuPrincipalCliente.aspx";
+                    } else {
+                       window.location = "../HomeFirmante.aspx";//firmante
+                    }
                 }
-
 
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {

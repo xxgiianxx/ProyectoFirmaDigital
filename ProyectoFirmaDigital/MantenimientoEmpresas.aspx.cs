@@ -33,15 +33,27 @@ namespace ProyectoFirmaDigital
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static eAjax fnListaEmpresas() {
+        public static eAjax fnListaEmpresas(string sEstado) {
 
             eAjax oAjax = new eAjax();
             EmpresaDAOcs dao = new EmpresaDAOcs();
-            string sresult = dao.fnListaEmpresa();
+            string sresult = dao.fnListaEmpresa(sEstado);
 
             oAjax.iTipoResultado = 1;
             oAjax.sValor1 = sresult;
 
+            return oAjax;
+        }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnEliminaEmpresa(int iIdEmpresa)
+        {
+
+            eAjax oAjax = new eAjax();
+            EmpresaDAOcs dao = new EmpresaDAOcs();
+            int sresult = dao.fnEliminaEmpresa(iIdEmpresa);
+            oAjax.iTipoResultado = 1;
             return oAjax;
         }
 

@@ -125,7 +125,7 @@ function fnEditaPlan(sParametro) {
     $('#txtDescripcion').val(vsplit[1]);
     $('#txtCantidad').val(vsplit[2]);
     $('#txtPrecio').val(vsplit[3]);
-    $('#idTitulo').html('Editar Plan');
+    $('#idTitulo').html('Modificar Plan');
     $('.Editar').css('display', '');
     $('.Registrar').css('display', 'none');
     $('#RegistroPlan').modal('show');
@@ -162,7 +162,7 @@ function fnActualizaPlan(iIdPlan,vDescripcion, vCantidad, vPrecio) {
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
                 fnListaPlanes();
-                bootbox.alert('Plan Actualizado Correctamente');
+                bootbox.alert('Plan Modificado Correctamente');
                 $('#RegistroPlan').modal('hide');
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {

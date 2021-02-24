@@ -50,10 +50,19 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0"/>
                         <!-- Heading -->
+
+
+             <div class="sidebar-heading">Mantenimiento</div>
+                        <li class="nav-item">
+                <a class="nav-link"   href="MantenimientoTrabajadores.aspx">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Trabajadores</span></a>
+            </li>
+
             <div class="sidebar-heading">Modificar</div>
 
             <li class="nav-item">
-                <a class="nav-link"  id="MantEmpresa">
+                <a class="nav-link"   href="ModificarEmpresa.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Empresa</span></a>
             </li>

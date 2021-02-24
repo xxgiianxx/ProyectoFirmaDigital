@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-   public class PlanesDAO
+    public class TrabajadorDAO
     {
 
-        public string fnListaPlanes()
+        public string fnListaRoles(int irol)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -19,8 +19,9 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spListaPlanes", conexion);
+                cmd = new SqlCommand("spListaRol", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdrol", SqlDbType.Int).Value = irol;
                 conexion.Open();
                 sResult = Convert.ToString(cmd.ExecuteScalar());
 
@@ -37,26 +38,24 @@ namespace CapaDatos
             return sResult;
         }
 
-        public int fnRegistraPlan(string sDescripcion , int iCantidad,decimal dPrecio)
+        public string fnListaTrabajadores(int idEmpresa)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
-            int sResult = -1;
+            string sResult = "";
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spRegistraPlan", conexion);
+                cmd = new SqlCommand("spListatrabajadores", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@vDescripcion", SqlDbType.VarChar).Value = sDescripcion;
-                cmd.Parameters.Add("@iCantidad", SqlDbType.Int).Value = iCantidad;
-                cmd.Parameters.Add("@dPrecio", SqlDbType.Decimal).Value = dPrecio;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = idEmpresa;
                 conexion.Open();
-                sResult = Convert.ToInt32(cmd.ExecuteScalar());
+                sResult = Convert.ToString(cmd.ExecuteScalar());
 
             }
             catch (Exception ex)
             {
-                sResult = -1;
+                sResult = ex.Message;
             }
             finally
             {
@@ -64,23 +63,30 @@ namespace CapaDatos
             }
 
             return sResult;
-
         }
 
-        public int fnCompraPlan(int iIdEmpresa,int iIdPlan,int iIdMarca,decimal dTotal,int iCantidadFirmas) {
+        public int fnRegistraTrabajador(string vNombre, string vApellidoPaterno, string vApellidoMaterno, string vDni, string vUsuario, string vClave, string vTelefono, int vRol,int iIdCargo,int iIdEmpresa)
+        {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
             int sResult = -1;
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spInsertaVenta", conexion);
+                cmd = new SqlCommand("spInsertaTrabajador", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = iIdEmpresa;
-                cmd.Parameters.Add("@iIdPlan", SqlDbType.Int).Value = iIdPlan;
-                cmd.Parameters.Add("@iIdMarca", SqlDbType.Int).Value = iIdMarca;
-                cmd.Parameters.Add("@dTotal", SqlDbType.Decimal).Value = dTotal;
-                cmd.Parameters.Add("@iCantidadFirmas", SqlDbType.Int).Value = iCantidadFirmas;
+                cmd.Parameters.Add("@vNombre", SqlDbType.VarChar).Value = vNombre;
+                cmd.Parameters.Add("@vApellidPaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vApellidoMaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vNroDocumento", SqlDbType.VarChar).Value = vDni;
+                cmd.Parameters.Add("@vUsuario", SqlDbType.VarChar).Value = vUsuario;
+                cmd.Parameters.Add("@vClave", SqlDbType.VarChar).Value = vClave;
+                cmd.Parameters.Add("@vTelefono", SqlDbType.VarChar).Value = vTelefono;
+                cmd.Parameters.Add("@iIdRol", SqlDbType.Int).Value = vRol;
+                cmd.Parameters.Add("@iIdCargo", SqlDbType.Int).Value = iIdCargo;
+
+
                 conexion.Open();
                 sResult = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -95,8 +101,10 @@ namespace CapaDatos
             }
 
             return sResult;
+
         }
-        public int fnActualizaPlan(int iIdPlan,string sDescripcion, int iCantidad, decimal dPrecio)
+
+        public int fnActualizaTrabajador(int iIdTrabajador,string vNombre, string vApellidoPaterno, string vApellidoMaterno, string vDni, string vUsuario, string vClave, string vTelefono, int iIdCargo)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -104,12 +112,17 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spActualizaPlan", conexion);
+                cmd = new SqlCommand("spActualizatrabajador", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@iIdPlan", SqlDbType.Int).Value = iIdPlan;
-                cmd.Parameters.Add("@vDescripcion", SqlDbType.VarChar).Value = sDescripcion;
-                cmd.Parameters.Add("@iCantidad", SqlDbType.Int).Value = iCantidad;
-                cmd.Parameters.Add("@dPrecio", SqlDbType.Decimal).Value = dPrecio;
+                cmd.Parameters.Add("@iIdTrabajador", SqlDbType.Int).Value = iIdTrabajador;
+                cmd.Parameters.Add("@vNombre", SqlDbType.VarChar).Value = vNombre;
+                cmd.Parameters.Add("@vApellidPaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vApellidoMaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vNroDocumento", SqlDbType.VarChar).Value = vDni;
+                cmd.Parameters.Add("@vUsuario", SqlDbType.VarChar).Value = vUsuario;
+                cmd.Parameters.Add("@vClave", SqlDbType.VarChar).Value = vClave;
+                cmd.Parameters.Add("@vTelefono", SqlDbType.VarChar).Value = vTelefono;
+                cmd.Parameters.Add("@iIdCargo", SqlDbType.Int).Value = iIdCargo;
                 conexion.Open();
                 sResult = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -127,7 +140,8 @@ namespace CapaDatos
 
         }
 
-        public int fnListafirmaDisponibles(int iIdEmpresa)
+
+        public int fnEliminaTrabajador(int iIdTrabajador)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -135,9 +149,9 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spListaFirmasDisponibles", conexion);
+                cmd = new SqlCommand("spEliminaTrabaajdor", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = iIdEmpresa;
+                cmd.Parameters.Add("@iIdTrabajador", SqlDbType.Int).Value = iIdTrabajador;
                 conexion.Open();
                 sResult = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -154,36 +168,5 @@ namespace CapaDatos
             return sResult;
 
         }
-
-        public int fnEliminaPlan(int iIdPlan)
-        {
-            SqlConnection conexion = null;
-            SqlCommand cmd = null;
-            int sResult = -1;
-            try
-            {
-                conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spEliminaPlan", conexion);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@iIdPlan", SqlDbType.Int).Value = iIdPlan;
-                conexion.Open();
-                sResult = Convert.ToInt32(cmd.ExecuteScalar());
-
-            }
-            catch (Exception ex)
-            {
-                sResult = -1;
-            }
-            finally
-            {
-                conexion.Close();
-            }
-
-            return sResult;
-
-        }
-
-
     }
-
 }

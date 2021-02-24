@@ -9,25 +9,39 @@
                             <h6 class="m-0 font-weight-bold text-primary">Mantenimiento Empresas</h6>
                         </div>
                         <div class="card-body">
-                         <a href="#" class="btn btn-success btn-icon-split" id="btnNuevo">
+                            <div class="row">
+                             <div class="col">
+                               <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Estado
+                                </button>
+                            <div class="dropdown-menu" id="cmbEstado">
+                           <a class="dropdown-item" onclick="fnSoloActivos(); return false;">Activo</a>
+                           <a class="dropdown-item" onclick="fnSoloInactivos(); return false;">Inactivo</a>
+                       </div>
+                      </div>
+
+                   </div>
+</div>
+<%--                         <a href="#" class="btn btn-success btn-icon-split" id="btnNuevo">
                                   <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                      </span>
                                    <span class="text">Nuevo</span>
-                              </a>
+                              </a>--%>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th style="font-size:12px;" class="text-center">Razon Social </th>
                                             <th style="font-size:12px;" class="text-center">Ruc</th>
-                                            <th style="font-size:12px;" class="text-center">Departamento</th>
-                                            <th style="font-size:12px;" class="text-center">Provincia</th>
-                                            <th style="font-size:12px;" class="text-center">Distrito</th>
+<%--                                            <th style="font-size:12px;" class="text-center">Departamento</th>--%>
                                             <th style="font-size:12px;" class="text-center">Direccion</th>
                                             <th style="font-size:12px;" class="text-center">Correo</th>
                                             <th style="font-size:12px;" class="text-center">Estado</th>
-                                            <th style="font-size:12px;"class="text-center" colspan="2"> Accion</th>
+<%--                                            <th style="font-size:12px;"class="text-center"> Modificar</th>--%>
+                                            <th style="font-size:12px;"class="text-center"> Inactivar</th>
+
 <%--                                            <th style="font-size:12px;" class="text-center">Eliminar</th>--%>
 
                                         </tr>
