@@ -86,6 +86,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\estadisticodocumentos.css" />
+    <Content Include="css\estilosdocumentos.css" />
     <Content Include="css\estilos.css" />
     <Content Include="css\estilosindex.css" />
     <Content Include="css\estilosplanes.css" />
@@ -133,6 +135,10 @@
     <Content Include="js\utilitarios.js" />
     <Content Include="Login.aspx" />
     <Content Include="Login.aspx.js" />
+    <Content Include="DocumentosFirmados.aspx" />
+    <Content Include="MantenimientoDocumentos.aspx" />
+    <Content Include="DocumentosFirmados.aspx.js" />
+    <Content Include="MantenimientoDocumentos.aspx.js" />
     <Content Include="MantenimientoEmpresas.aspx.js" />
     <Content Include="MantenimientoEmpresas.aspx" />
     <Content Include="MantenimientoPlanes.aspx" />
@@ -1966,6 +1972,20 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentosFirmados.aspx.cs">
+      <DependentUpon>DocumentosFirmados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DocumentosFirmados.aspx.designer.cs">
+      <DependentUpon>DocumentosFirmados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MantenimientoDocumentos.aspx.cs">
+      <DependentUpon>MantenimientoDocumentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MantenimientoDocumentos.aspx.designer.cs">
+      <DependentUpon>MantenimientoDocumentos.aspx</DependentUpon>
     </Compile>
     <Compile Include="MantenimientoEmpresas.aspx.cs">
       <DependentUpon>MantenimientoEmpresas.aspx</DependentUpon>

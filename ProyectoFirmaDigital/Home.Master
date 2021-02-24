@@ -70,6 +70,16 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Roles</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="MantenimientoDocumentos.aspx" id="MantDocumentos">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Documentos</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="DocumentosFirmados.aspx" id="ConsDocumentos">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Documentos Firmados</span></a>
+            </li>
             </asp:Panel>
 
 

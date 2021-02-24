@@ -1,0 +1,74 @@
+﻿.contenedorcirculos{
+    width: 100%;
+    height: 150px;
+}
+
+.circ, .circ2{
+    width: 50%;
+    height: 100px;
+    float: left;
+}
+
+#circulo {
+    width: 100px;
+    height: 100px;
+    border: 3px solid gray;
+    opacity: 0.5;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    padding: 3%
+}
+
+    #circulo > h2 {
+        font-family: sans-serif;
+        color: black;
+        font-size: 1.4rem;
+    }
+
+#circulo2 {
+    width: 100px;
+    height: 100px;
+    border: 3px solid gray;
+    opacity: 0.5;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    padding: 3%
+}
+
+    #circulo2 > h2 {
+        font-family: sans-serif;
+        color: black;
+        font-size: 1.4rem;
+    }
+
+
+.contFiltrar{
+    width: 100%;
+    height: 70px;
+    float: left;
+}
+
+.contDesde{
+    width: 45%;
+    float:left;
+}
+
+.contHasta {
+    width: 45%;
+    float: left;
+}
+
+.contBoton {
+    width: 10%;
+    float: left;
+}
