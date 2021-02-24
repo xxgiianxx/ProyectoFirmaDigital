@@ -20,7 +20,7 @@ namespace ProyectoFirmaDigital
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
+
             if (!Page.IsPostBack)
             {
                 if (Session["leSeguridad"] == null)
@@ -35,7 +35,7 @@ namespace ProyectoFirmaDigital
                     milabel.Text = lsSeguridad[0].sPersonal;
                 }
             }
-            */
+
         }
 
         [WebMethod]
@@ -45,8 +45,28 @@ namespace ProyectoFirmaDigital
 
             eAjax oAjax = new eAjax();
             TrabajadorDAO dao = new TrabajadorDAO();
-            string iresult = dao.fnListaTrabajadores();
+            List<eSeguridad> lstSeguridad = new List<eSeguridad>();
+            lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+            int idEmpresa = Convert.ToInt32(lstSeguridad[0].iIdEmpresa);
+            string iresult = dao.fnListaTrabajadores(idEmpresa);
 
+            oAjax.iTipoResultado = 1;
+            oAjax.sValor1 = iresult;
+            return oAjax;
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static eAjax fnListaroles()
+        {
+
+            eAjax oAjax = new eAjax();
+            TrabajadorDAO dao = new TrabajadorDAO();
+
+            List<eSeguridad> lstSeguridad = new List<eSeguridad>();
+            lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+            string sUsuarioAuditoria = lstSeguridad[0].strUsuario;
+            int iIdCargo = Convert.ToInt32(lstSeguridad[0].iIdCargo);
+            string iresult = dao.fnListaRoles(iIdCargo);
             oAjax.iTipoResultado = 1;
             oAjax.sValor1 = iresult;
             return oAjax;
@@ -54,28 +74,27 @@ namespace ProyectoFirmaDigital
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static eAjax fnRegistraTrabajador(int iIdTrabajador,
-            string vNombre,
-            string vApellidoPaterno,
-            string vApellidoMaterno,
-            string NroDocumento,
-            string vClave,
-            int vTelefono,
-            int iIdRol,
-            int iEstado)
+        public static eAjax fnRegistraTrabajador(string vNombre,string vApellidoPaterno,string vApellidoMaterno,string vDni,string vUsuario,string vClave,string vTelefono,int vRol)
         {
+
+            eAjax oeAjax = new eAjax();
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            context.Response.ContentType = "application/json";
+            if (HttpContext.Current.Session["leSeguridad"] == null)
+            {
+                oeAjax.iTipoResultado = 99;
+                oeAjax.sMensajeError = "Fin Session";
+                return oeAjax;
+            }
 
             eAjax oAjax = new eAjax();
             TrabajadorDAO dao = new TrabajadorDAO();
-            int iresult = dao.fnRegistraTrabajador(iIdTrabajador,
-                vNombre, 
-                vApellidoPaterno, 
-                vApellidoMaterno, 
-                NroDocumento,
-                vClave,
-                vTelefono,
-                iIdRol,
-                iEstado);
+            List<eSeguridad> lstSeguridad = new List<eSeguridad>();
+            lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+            string sUsuarioAuditoria = lstSeguridad[0].strUsuario;
+            int iIdCargo = Convert.ToInt32(lstSeguridad[0].iIdCargo);
+            int iIdempresa = Convert.ToInt32(lstSeguridad[0].iIdEmpresa);
+            int iresult = dao.fnRegistraTrabajador(vNombre, vApellidoPaterno, vApellidoMaterno, vDni, vUsuario, vClave, vTelefono, vRol, iIdCargo, iIdempresa);
             if (iresult > 0)
             {
                 oAjax.iTipoResultado = 1;
@@ -90,38 +109,40 @@ namespace ProyectoFirmaDigital
             return oAjax;
         }
 
+
+
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static eAjax fnActualizaTrabajador(int iIdTrabajador,
-            string vNombre,
-            string vApellidoPaterno,
-            string vApellidoMaterno,
-            string NroDocumento,
-            string vClave,
-            int vTelefono,
-            int iIdRol,
-            int iEstado)
+        public static eAjax fnActualizaTrabajador(int iIdTrabajador,string vNombre, string vApellidoPaterno, string vApellidoMaterno, string vDni, string vUsuario, string vClave, string vTelefono, int vRol)
         {
+
+            eAjax oeAjax = new eAjax();
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            context.Response.ContentType = "application/json";
+            if (HttpContext.Current.Session["leSeguridad"] == null)
+            {
+                oeAjax.iTipoResultado = 99;
+                oeAjax.sMensajeError = "Fin Session";
+                return oeAjax;
+            }
 
             eAjax oAjax = new eAjax();
             TrabajadorDAO dao = new TrabajadorDAO();
-            int iresult = dao.fnActualizaTrabajador(iIdTrabajador,
-                vNombre,
-                vApellidoPaterno,
-                vApellidoMaterno,
-                NroDocumento,
-                vClave,
-                vTelefono,
-                iIdRol,
-                iEstado);
+            List<eSeguridad> lstSeguridad = new List<eSeguridad>();
+            lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
+            string sUsuarioAuditoria = lstSeguridad[0].strUsuario;
+            int iIdCargo = Convert.ToInt32(lstSeguridad[0].iIdCargo);
+            int iIdempresa = Convert.ToInt32(lstSeguridad[0].iIdEmpresa);
+            int iresult = dao.fnActualizaTrabajador(iIdTrabajador,vNombre, vApellidoPaterno, vApellidoMaterno, vDni, vUsuario, vClave, vTelefono, iIdCargo);
             if (iresult > 0)
             {
                 oAjax.iTipoResultado = 1;
+
             }
             else
             {
                 oAjax.iTipoResultado = -1;
-                oAjax.sMensajeError = "Ocurrio Un Error Al Actualizar Plan";
+                oAjax.sMensajeError = "Ocurrio Un Error Al Registrar Trabajador";
             }
 
             return oAjax;
@@ -142,7 +163,7 @@ namespace ProyectoFirmaDigital
             else
             {
                 oAjax.iTipoResultado = -1;
-                oAjax.sMensajeError = "Ocurrio Un Error Al Eliminar Plan";
+                oAjax.sMensajeError = "Ocurrio Un Error Al Eliminar Trabajador";
             }
 
             return oAjax;

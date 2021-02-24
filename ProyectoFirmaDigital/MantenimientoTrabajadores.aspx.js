@@ -1,59 +1,116 @@
 ﻿let sCodigoPlan = '';
 $(document).ready(function () {
-
-    fnListaPlanes();
+    fnListaTrabajadores();
     $('.Editar').css('display', 'none');
     $('.Registrar').css('display', '');
-
+     fnListaRoles();
 });
 
 $(document).on('click', '#btnNuevo', function () {
-    $('#idTitulo').html('Registrar Plan');
-    $('#txtDescripcion').val('');
-    $('#txtCantidad').val('');
-    $('#txtPrecio').val('');
+    $('#idTitulo').html('Registrar Trabajador');
+    $('#txtNombreTrabajador').val('');
+    $('#txtAPaterno').val('');
+    $('#txtAMaterno').val('');
+    $('#txtDNI').val('');
+    $('#txtUsuario').val('');
+    $('#txtClave').val('');
+    $('#txtTelefono').val('');
+    $('#cmbRol').val('');
+    $('#cmbRol').change();
+
+
     $('.Editar').css('display', 'none');
     $('.Registrar').css('display', '');
     $('#RegistroPlan').modal('show');
+
+
 });
 
 $(document).on('click', '#btnRegistrar', function () {
-    fnRegistrarPlan();
+    fnRegistraTrabajador();
     return false;
 });
 
-function fnRegistrarPlan() {
-    var vDescripcion = $('#txtDescripcion').val();
-    var vCantidad = $('#txtCantidad').val();
-    var vPrecio = $('#txtPrecio').val();
+function fnListaRoles() {
+    $.ajax({
+        type: 'POST',
+        url: 'MantenimientoTrabajadores.aspx/fnListaroles',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == 1) {
+                fnArmaCombo("cmbRol",data.d.sValor1);
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "../login.aspx";
+                });
+            } else {
+                bootbox.alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
 
-    if (vDescripcion == '' || vCantidad == '' || vPrecio == '') {
+    });
+
+}
+function fnArmaCombo(html, sDatos) {
+    var sDepartamento = sDatos.split('¬');
+    if (sDepartamento != "") {
+        var sCombo = '';
+        for (var i = 0; i < sDepartamento.length; i++) {
+            var fila = sDepartamento[i].split('|');
+            sCombo += '<option value="' + fila[0] + '">';
+            sCombo += fila[1] + '</option>';
+
+        }
+
+        $("#" + html).html(sCombo);
+        $("#" + html).val('');
+    }
+
+}
+function fnRegistraTrabajador() {
+    var vNombre = $('#txtNombreTrabajador').val();
+    var vApellidoPaterno = $('#txtAPaterno').val();
+    var vApellidoMaterno = $('#txtAMaterno').val();
+    var vDni = $('#txtDNI').val();
+    var vUsuario = $('#txtUsuario').val();
+    var vClave = $('#txtClave').val();
+    var vTelefono = $('#txtTelefono').val();
+    var vRol = $('#cmbRol').val();
+    if (vRol == null) {
+        vRol = '';
+    }
+
+    if (vNombre == '' || vApellidoPaterno == '' || vApellidoMaterno == '' || vDni == '' || vUsuario == '' || vClave == '' || vTelefono == '' || vRol=='') {
         bootbox.alert('Complete Todos Los Campos');
         return false;
     } else {
-        fnRegistra(vDescripcion, vCantidad, vPrecio);
+        fnRegistra(vNombre, vApellidoPaterno, vApellidoMaterno, vDni, vUsuario, vClave, vTelefono, vRol);
     }
 
 
 }
 
-function fnRegistra(vDescripcion, vCantidad, vPrecio) {
-    var vParametro = "{'sDescripcion':'" + vDescripcion + "','iCantidad':'" + vCantidad + "','dPrecio':'" + vPrecio + "'}";
+function fnRegistra(vNombre, vApellidoPaterno, vApellidoMaterno, vDni, vUsuario, vClave, vTelefono, vRol) {
+    var vParametro = "{'vNombre':'" + vNombre + "','vApellidoPaterno':'" + vApellidoPaterno + "','vApellidoMaterno':'" + vApellidoMaterno + "','vDni':'" + vDni + "','vUsuario':'" + vUsuario + "','vClave':'" + vClave + "','vTelefono':'" + vTelefono + "','vRol':'" + vRol+"'}";
     $.ajax({
         type: 'POST',
-        url: 'MantenimientoPlanes.aspx/fnRegistraPlanes',
+        url: 'MantenimientoTrabajadores.aspx/fnRegistraTrabajador',
         contentType: 'application/json; utf-8',
         dataType: 'json',
         data: vParametro,
         async: false,
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
-                fnListaPlanes();
-                bootbox.alert('Plan Registrado Correctamente');
+                fnListaTrabajadores();
+                bootbox.alert('Trabajador Registrado Correctamente');
                 $('#RegistroPlan').modal('hide');
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -67,21 +124,21 @@ function fnRegistra(vDescripcion, vCantidad, vPrecio) {
 }
 
 function fnEliminar(iIdPlan) {
-    var vParametro = "{'iIdPlan':'" + iIdPlan + "'}";
+    var vParametro = "{'iIdTrabajador':'" + iIdPlan + "'}";
     $.ajax({
         type: 'POST',
-        url: 'MantenimientoPlanes.aspx/fnEliminaPlan',
+        url: 'MantenimientoTrabajadores.aspx/fnEliminaTrabajador',
         contentType: 'application/json; utf-8',
         dataType: 'json',
         data: vParametro,
         async: false,
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
-                fnListaPlanes();
-                bootbox.alert('Plan Eliminado Correctamente');
+                fnListaTrabajadores();
+                bootbox.alert('Trabajador Eliminado Correctamente');
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -94,10 +151,10 @@ function fnEliminar(iIdPlan) {
 
 }
 
-function fnListaPlanes() {
+function fnListaTrabajadores() {
     $.ajax({
         type: 'POST',
-        url: 'MantenimientoPlanes.aspx/fnListaPlanes',
+        url: 'MantenimientoTrabajadores.aspx/fnListaTrabajadores',
         contentType: 'application/json; utf-8',
         dataType: 'json',
         async: false,
@@ -106,7 +163,7 @@ function fnListaPlanes() {
                 fnArmaTablaDetalle(data.d.sValor1);
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -118,55 +175,70 @@ function fnListaPlanes() {
     });
 
 }
-function fnEditaPlan(sParametro) {
+function fnEditaTrabajador(sParametro) {
     var vsplit = sParametro.split('|');
     sCodigoPlan = vsplit[0];
+    $('#txtNombreTrabajador').val(vsplit[1]);
+    $('#txtAPaterno').val(vsplit[2]);
+    $('#txtAMaterno').val(vsplit[3]);
+    $('#txtDNI').val(vsplit[4]);
+    $('#txtUsuario').val(vsplit[5]);
+    $('#txtClave').val(vsplit[6]);
+    $('#txtTelefono').val(vsplit[7]);
+    $('#cmbRol').val(vsplit[8]);
+    $('#cmbRol').change();
 
-    $('#txtDescripcion').val(vsplit[1]);
-    $('#txtCantidad').val(vsplit[2]);
-    $('#txtPrecio').val(vsplit[3]);
-    $('#idTitulo').html('Modificar Plan');
+
+
+    $('#idTitulo').html('Modificar Trabajador');
     $('.Editar').css('display', '');
     $('.Registrar').css('display', 'none');
     $('#RegistroPlan').modal('show');
+
 
 
 }
 
 $(document).on('click', '#btnModificar', function () {
 
-    var vDescripcion = $('#txtDescripcion').val();
-    var vCantidad = $('#txtCantidad').val();
-    var vPrecio = $('#txtPrecio').val();
+    var vNombre = $('#txtNombreTrabajador').val();
+    var vApellidoPaterno = $('#txtAPaterno').val();
+    var vApellidoMaterno = $('#txtAMaterno').val();
+    var vDni = $('#txtDNI').val();
+    var vUsuario = $('#txtUsuario').val();
+    var vClave = $('#txtClave').val();
+    var vTelefono = $('#txtTelefono').val();
+    var vRol = $('#cmbRol').val();
 
-    if (vDescripcion == '' || vCantidad == '' || vPrecio == '') {
+    if (vNombre == '' || vApellidoPaterno == '' || vApellidoMaterno == '' || vDni == '' || vUsuario == '' || vClave == '' || vTelefono == '' || vRol == '') {
         bootbox.alert('Complete Todos Los Campos');
     } else {
-        fnActualizaPlan(sCodigoPlan, vDescripcion, vCantidad, vPrecio);
+        fnActualizaTrabajador(sCodigoPlan, vNombre, vApellidoPaterno, vApellidoMaterno, vDni, vUsuario, vClave, vTelefono, vRol);
     }
 
     return false;
 
 });
 
-function fnActualizaPlan(iIdPlan, vDescripcion, vCantidad, vPrecio) {
+function fnActualizaTrabajador(iIdTrabajador, vNombre, vApellidoPaterno, vApellidoMaterno, vDni, vUsuario, vClave, vTelefono, vRol) {
 
-    var vParametro = "{'iIdPlan':'" + iIdPlan + "','sDescripcion':'" + vDescripcion + "','iCantidad':'" + vCantidad + "','dPrecio':'" + vPrecio + "'}";
+    var vParametro = "{'iIdTrabajador':'" + iIdTrabajador+"','vNombre':'" + vNombre + "','vApellidoPaterno':'" + vApellidoPaterno + "','vApellidoMaterno':'" + vApellidoMaterno + "','vDni':'" + vDni + "','vUsuario':'" + vUsuario + "','vClave':'" + vClave + "','vTelefono':'" + vTelefono + "','vRol':'" + vRol + "'}";
+
     $.ajax({
         type: 'POST',
-        url: 'MantenimientoPlanes.aspx/fnActualizaPlan',
+        url: 'MantenimientoTrabajadores.aspx/fnActualizaTrabajador',
         contentType: 'application/json; utf-8',
         dataType: 'json',
         data: vParametro,
         async: false,
         success: function (data) {
             if (data.d.iTipoResultado == 1) {
-                fnListaPlanes();
-                bootbox.alert('Plan Modificado Correctamente');
+                fnListaTrabajadores();
+                bootbox.alert('Trabajador Modificado Correctamente');
                 $('#RegistroPlan').modal('hide');
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "../login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -189,27 +261,33 @@ function fnEliminaPlan(sCodigo) {
 
 function fnArmaTablaDetalle(sData) {
     if (sData != "") {
-        var Info = sData.split('*');
+        var Info = sData.split('¬');
         var Tbody = '';
         var h = 0;
         if (Info != "") {
             for (var i = 0; i < Info.length; i++) {
                 var fila = Info[i].split('|');
                 Tbody += "<tr >";
+                Tbody += '<td style="font-size:12px;" class="text-left" >' + fila[0] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left" >' + fila[1] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-center">' + parseFloat(fila[2]).toFixed(2) + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-center">' + parseFloat(fila[3]).toFixed(2) + '</td>';
-                Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaPlan(\'' + fila[0] + '|' + fila[1] + '|' + fila[2] + '|' + fila[3] + '|' + fila[5] + '\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[2] + '</td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[3] + '</td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[4] + '</td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[5] + '</td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[6] + '</td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[7] + '</td>';
+                Tbody += '<td style="font-size:12px;" class="text-center">' + fila[9] + '</td>';
+                Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaTrabajador(\'' + fila[0] + '|' + fila[1] + '|' + fila[2] + '|' + fila[3] + '|' + fila[4] +'|' + fila[5] + '|' + fila[6] + '|' + fila[7] + '|' + fila[8] +'\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaPlan(\'' + fila[0] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
                 Tbody += '</tr>';
                 h++;
             }
 
-            $("#dtTablaPlanes").html(Tbody);
+            $("#dtTablaTrabajadores").html(Tbody);
         } else {
-            $("#dtTablaPlanes").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
+            $("#dtTablaTrabajadores").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
         }
     } else {
-        $("#dtTablaPlanes").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
+        $("#dtTablaTrabajadores").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
     }
 }

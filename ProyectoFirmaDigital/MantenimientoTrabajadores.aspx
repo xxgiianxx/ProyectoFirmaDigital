@@ -23,11 +23,11 @@
                                             <th style="font-size:12px;" class="text-center" >Nombre</th>
                                             <th style="font-size:12px;" class="text-center">A. Paterno</th>
                                             <th style="font-size:12px;" class="text-center">A. Materno</th>
+                                            <th style="font-size:12px;" class="text-center">Nro Documento</th>
+                                            <th style="font-size:12px;" class="text-center">Usuario</th>
                                             <th style="font-size:12px;" class="text-center">Clave</th>
                                             <th style="font-size:12px;" class="text-center">Telefono</th>
-                                            <th style="font-size:12px;" class="text-center">Clave</th>
-                                            <th style="font-size:12px;" class="text-center">ROL</th>
-                                            <th style="font-size:12px;" class="text-center">ESTADO</th>
+                                            <th style="font-size:12px;" class="text-center">Rol</th>
 <%--                                            <th style="font-size:12px;" class="text-center">Estado</th>--%>
 <%--                                            <th style="font-size:12px;width:1%;"class="text-center" colspan="2"> Accion</th>--%>
                                               <th style="font-size:12px;width:1%;" class="text-center">Modificar</th>
@@ -112,6 +112,19 @@
                         </div>
 
                     </div>
+                  <div class="row">
+                        <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Usuario</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Usuario" placeholder="Usuario" required id="txtUsuario" maxlength="50"/>
+                        </div>
+
+                        </div>
+
+                    </div>
+
                     <div class="row">
                         <div class="col">
                         <div class="input-group mb-3">
@@ -144,17 +157,12 @@
                               <div class="input-group-prepend">
                                   <span class="input-group-text" >Rol</span>
                              </div>
-                            <input type="text" class="form-control" required  id="txtRol"  step="1">
+                                <select id="cmbRol">
+
+                                   </select>
+<%--                            <input type="text" class="form-control" required  id="txtRol"  step="1">--%>
                       </div>
                    </div>
-               <div class="col">
-    <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon2">Estado</span>
-  </div>
-  <input type="text" class="form-control" required id="txtEstado">
-</div>
-  </div>
 </div>
 
 
@@ -171,7 +179,7 @@
         </div>
     </div>
 
-    <script src="MantenimientoPlanes.aspx.js"></script>
+    <script src="MantenimientoTrabajadores.aspx.js"></script>
 
 
 </asp:Content>

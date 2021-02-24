@@ -10,7 +10,8 @@ namespace CapaDatos
 {
     public class TrabajadorDAO
     {
-        public string fnListaTrabajadores()
+
+        public string fnListaRoles(int irol)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -18,8 +19,9 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spListaPlanes", conexion);
+                cmd = new SqlCommand("spListaRol", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdrol", SqlDbType.Int).Value = irol;
                 conexion.Open();
                 sResult = Convert.ToString(cmd.ExecuteScalar());
 
@@ -36,15 +38,34 @@ namespace CapaDatos
             return sResult;
         }
 
-        public int fnRegistraTrabajador(int iIdTrabajador,
-            string vNombre,
-            string vApellidoPaterno,
-            string vApellidoMaterno,
-            string NroDocumento,
-            string vClave,
-            int vTelefono,
-            int iIdRol,
-            int iEstado)
+        public string fnListaTrabajadores(int idEmpresa)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            string sResult = "";
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spListatrabajadores", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = idEmpresa;
+                conexion.Open();
+                sResult = Convert.ToString(cmd.ExecuteScalar());
+
+            }
+            catch (Exception ex)
+            {
+                sResult = ex.Message;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return sResult;
+        }
+
+        public int fnRegistraTrabajador(string vNombre, string vApellidoPaterno, string vApellidoMaterno, string vDni, string vUsuario, string vClave, string vTelefono, int vRol,int iIdCargo,int iIdEmpresa)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -52,17 +73,20 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spRegistraPlan", conexion);
+                cmd = new SqlCommand("spInsertaTrabajador", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@idTrabajador", SqlDbType.Int).Value = iIdTrabajador;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = iIdEmpresa;
                 cmd.Parameters.Add("@vNombre", SqlDbType.VarChar).Value = vNombre;
-                cmd.Parameters.Add("@vApellidoPaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
-                cmd.Parameters.Add("@vApellidoMaterno", SqlDbType.VarChar).Value = vApellidoMaterno;
-                cmd.Parameters.Add("@NroDocumento", SqlDbType.VarChar).Value = NroDocumento;
+                cmd.Parameters.Add("@vApellidPaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vApellidoMaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vNroDocumento", SqlDbType.VarChar).Value = vDni;
+                cmd.Parameters.Add("@vUsuario", SqlDbType.VarChar).Value = vUsuario;
                 cmd.Parameters.Add("@vClave", SqlDbType.VarChar).Value = vClave;
-                cmd.Parameters.Add("@vTelefono", SqlDbType.Int).Value = vTelefono;
-                cmd.Parameters.Add("@iIdRol", SqlDbType.Int).Value = iIdRol;
-                cmd.Parameters.Add("@iEstado", SqlDbType.Int).Value = iEstado;
+                cmd.Parameters.Add("@vTelefono", SqlDbType.VarChar).Value = vTelefono;
+                cmd.Parameters.Add("@iIdRol", SqlDbType.Int).Value = vRol;
+                cmd.Parameters.Add("@iIdCargo", SqlDbType.Int).Value = iIdCargo;
+
+
                 conexion.Open();
                 sResult = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -80,15 +104,7 @@ namespace CapaDatos
 
         }
 
-        public int fnActualizaTrabajador(int iIdTrabajador,
-            string vNombre,
-            string vApellidoPaterno,
-            string vApellidoMaterno,
-            string NroDocumento,
-            string vClave,
-            int vTelefono,
-            int iIdRol,
-            int iEstado)
+        public int fnActualizaTrabajador(int iIdTrabajador,string vNombre, string vApellidoPaterno, string vApellidoMaterno, string vDni, string vUsuario, string vClave, string vTelefono, int iIdCargo)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -96,17 +112,17 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spActualizaPlan", conexion);
+                cmd = new SqlCommand("spActualizatrabajador", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@idTrabajador", SqlDbType.Int).Value = iIdTrabajador;
+                cmd.Parameters.Add("@iIdTrabajador", SqlDbType.Int).Value = iIdTrabajador;
                 cmd.Parameters.Add("@vNombre", SqlDbType.VarChar).Value = vNombre;
-                cmd.Parameters.Add("@vApellidoPaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
-                cmd.Parameters.Add("@vApellidoMaterno", SqlDbType.VarChar).Value = vApellidoMaterno;
-                cmd.Parameters.Add("@NroDocumento", SqlDbType.VarChar).Value = NroDocumento;
+                cmd.Parameters.Add("@vApellidPaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vApellidoMaterno", SqlDbType.VarChar).Value = vApellidoPaterno;
+                cmd.Parameters.Add("@vNroDocumento", SqlDbType.VarChar).Value = vDni;
+                cmd.Parameters.Add("@vUsuario", SqlDbType.VarChar).Value = vUsuario;
                 cmd.Parameters.Add("@vClave", SqlDbType.VarChar).Value = vClave;
-                cmd.Parameters.Add("@vTelefono", SqlDbType.Int).Value = vTelefono;
-                cmd.Parameters.Add("@iIdRol", SqlDbType.Int).Value = iIdRol;
-                cmd.Parameters.Add("@iEstado", SqlDbType.Int).Value = iEstado;
+                cmd.Parameters.Add("@vTelefono", SqlDbType.VarChar).Value = vTelefono;
+                cmd.Parameters.Add("@iIdCargo", SqlDbType.Int).Value = iIdCargo;
                 conexion.Open();
                 sResult = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -133,7 +149,7 @@ namespace CapaDatos
             try
             {
                 conexion = Conexion.getInstance().ConexionBD();
-                cmd = new SqlCommand("spEliminaTrabajador", conexion);
+                cmd = new SqlCommand("spEliminaTrabaajdor", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@iIdTrabajador", SqlDbType.Int).Value = iIdTrabajador;
                 conexion.Open();

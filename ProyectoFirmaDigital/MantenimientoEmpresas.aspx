@@ -22,14 +22,6 @@
                       </div>
 
                    </div>
-               <div class="col">
-    <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon2">Precio</span>
-  </div>
-  <input type="number" class="form-control" required id="txtPrecio">
-</div>
-  </div>
 </div>
 <%--                         <a href="#" class="btn btn-success btn-icon-split" id="btnNuevo">
                                   <span class="icon text-white-50">
