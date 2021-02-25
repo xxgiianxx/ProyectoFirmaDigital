@@ -15,6 +15,8 @@ namespace CapaEntidad
         public int iIdCargo { get; set; }
         public int iIdEmpresa { get; set; }
         public string sNombreEmpresa { get; set; }
+
+        public int iIdTrabajador { get; set; }
     
     
     }

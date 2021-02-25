@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexion.cs" />
+    <Compile Include="eArchivo.cs" />
     <Compile Include="EmpresaDAOcs.cs" />
     <Compile Include="PlanesDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

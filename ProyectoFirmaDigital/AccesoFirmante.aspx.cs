@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace ProyectoFirmaDigital
 {
-    public partial class DocumentoFirma : System.Web.UI.Page
+    public partial class AccesoFirmante : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -31,19 +31,19 @@ namespace ProyectoFirmaDigital
             }
         }
 
-        [WebMethod]
-        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static eAjax fnListaDocumentos() {
+        //[WebMethod]
+        //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        //public static eAjax fnListaDocumentos() {
 
-            eAjax oAjax = new eAjax();
-            DocumentosDAO dao = new DocumentosDAO();
-            string sresult = dao.fnListaDocumento();
+        //    eAjax oAjax = new eAjax();
+        //    DocumentosDAO dao = new DocumentosDAO();
+        //    string sresult = dao.fnListaDocumento();
 
-            oAjax.iTipoResultado = 1;
-            oAjax.sValor1 = sresult;
+        //    oAjax.iTipoResultado = 1;
+        //    oAjax.sValor1 = sresult;
 
-            return oAjax;
-        }
+        //    return oAjax;
+        //}
 
 
         

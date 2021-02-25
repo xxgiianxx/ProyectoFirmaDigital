@@ -65,7 +65,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Descripcion</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Descripcion" placeholder="Descripcion" required id="txtDescripcion" maxlength="50"/>
+                            <input type="text" class="form-control" aria-label="Descripcion" placeholder="Descripcion" required id="txtDescripcion" maxlength="8"/>
                         </div>
 
                         </div>

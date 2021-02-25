@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="MantenimientoDocumentos.aspx.cs" Inherits="ProyectoFirmaDigital.MantenimientoEmpresas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/HomeCliente.Master" AutoEventWireup="true" CodeBehind="MantenimientoDoc.aspx.cs" Inherits="ProyectoFirmaDigital.MantenimientoDoc" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -21,14 +21,15 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th style="font-size:12px;" class="text-center">Código</th>
+<%--                                            <th style="font-size:12px;" class="text-center">Código</th>--%>
                                             <th style="font-size:12px;" class="text-center">Nombre</th>
                                             <th style="font-size:12px;" class="text-center">Descripción</th>
                                             <th style="font-size:12px;" class="text-center">Trab. Carga</th>
                                             <th style="font-size:12px;" class="text-center">Fecha Carga</th>
                                             <th style="font-size:12px;" class="text-center">Trab. Firma</th>
                                             <th style="font-size:12px;" class="text-center">Estado</th>
-                                            <th style="font-size:12px;" class="text-center" colspan="2"> Accion</th>
+                                            <th style="font-size:12px;" class="text-center">Documento</th>
+                                            <th style="width:0.8%;font-size:12px" class="text-center" > Eliminar</th>
 <%--                                            <th style="font-size:12px;" class="text-center">Eliminar</th>--%>
                                             
                                         </tr>
@@ -63,7 +64,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Nombre Documento</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="NombreDocumento" placeholder="Nombre del Documento" required id="txtRuc" maxlength="11"/>
+                            <input type="text" class="form-control" aria-label="NombreDocumento" placeholder="Nombre del Documento" required id="txtNombreDocumento" maxlength="45"/>
                         </div>
                         </div>
                     </div>
@@ -74,7 +75,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Descripción</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Descripcion" placeholder="Descripción del documento" required id="txtRazonSocial" />
+                            <input type="text" class="form-control" aria-label="Descripcion" placeholder="Descripción del documento" required id="txtDescripcion" />
                         </div>
                         </div>
                    </div>
@@ -92,11 +93,38 @@
                </div>
            </div>
 
-                    <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+                     <div class="row">
+                         <div class="col">
+                             
+                                    <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                            <span class="input-group-text">Documento</span>
+                         </div>
+                          <input type="text" class="form-control" id="txtRutaDocumentoNuevo" readonly="readonly" />
+                           <input id="idCargaDocumentoNuevo" type="file" name="uploadnew" accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf,.vsd,.vsdx" style="display:none;" />
+
+                <%--      <select id="cmdTrabajador" style="width:70%;" class="form-control" >
+
+                     </select> --%>                 
+
+                     </div>
+
+                         </div>
+                         
+                  </div>
+             <%--         <div class="col-md-9">
+                          <div class="input-group">
+                            <span class="input-group-addon" style="background-color: #b3baff;"><b>Documento</b></span>
+                            <input type="text" class="form-control" id="txtRutaDocumentoNuevo" readonly="readonly" />
+                              <input id="idCargaDocumentoNuevo" type="file" name="uploadnew" accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf,.vsd,.vsdx" style="display:none;" />
+
+                           </div>
+                      </div>--%>
+                <%--    <div id="drop_zone" >
                         <p class="arrastre">Seleccione y arrastre los archivos o <span class="clickaqui">haga click aqui</span></p>
                         <br>
                         
-                    </div>
+                    </div>--%>
                     
 
                 </div>
@@ -109,8 +137,17 @@
         </div>
     </div>
 
-<script src="MantenimientoDocumentos.aspx.js"></script>
+    <script>
+  $('#dataTable').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    }
+  });
 
-    <link rel="stylesheet" href="css/estilosdocumentos.css"/>
+    </script>
+   
+
+
+      
+    <script src="MantenimientoDoc.aspx.js"></script>
 </asp:Content>
-

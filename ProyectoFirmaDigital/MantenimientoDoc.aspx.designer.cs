@@ -11,7 +11,7 @@ namespace ProyectoFirmaDigital
 {
 
 
-    public partial class DocumentoFirma
+    public partial class MantenimientoDoc
     {
     }
 }

@@ -52,20 +52,20 @@
                         <!-- Heading -->
 
 
-             <div class="sidebar-heading">Mantenimiento</div>
+<%--             <div class="sidebar-heading">Mantenimiento</div>
                         <li class="nav-item">
                 <a class="nav-link"   href="MantenimientoTrabajadores.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Trabajadores</span></a>
-            </li>
+            </li>--%>
 
-            <div class="sidebar-heading">Modificar</div>
+<%--            <div class="sidebar-heading">Modificar</div>
 
             <li class="nav-item">
                 <a class="nav-link"   href="ModificarEmpresa.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Empresa</span></a>
-            </li>
+            </li>--%>
 <%--            <li class="nav-item Admin">
                 <a class="nav-link" href="MantenimientoPlanes.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -77,22 +77,29 @@
                     <span>Roles</span></a>
             </li>--%>
             
-            <div class="sidebar-heading">Comprar</div>
+ <%--           <div class="sidebar-heading">Comprar</div>
 
              <li class="nav-item">
                 <a class="nav-link" href="CompraPlan.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Plan</span></a>
-            </li>
-           <hr class="sidebar-divider d-none d-md-block">
+            </li>--%>
+<%--           <hr class="sidebar-divider d-none d-md-block">--%>
 
-                        <div class="sidebar-heading">Documento</div>
+             <div class="sidebar-heading">Documento</div>
+
+             <li class="nav-item">
+                <a class="nav-link" href="MantenimientoDoc.aspx">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mantenimiento</span></a>
+            </li>
+<%--             <hr class="sidebar-divider d-none d-md-block">
 
              <li class="nav-item">
                 <a class="nav-link" href="DocumentoFirma.aspx">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Enviar Documentos firmados</span></a>
-            </li>
+            </li>--%>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

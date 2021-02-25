@@ -78,7 +78,7 @@ function fnSoloInactivos() {
 
 
 function fnEliminaEmpresa(sCodigo) {
-    var sParametro = "{'sCodigo':'" + sCodigo + "'}";
+    var sParametro = "{'iIdEmpresa':'" + sCodigo + "'}";
     $.ajax({
         type: 'POST',
         url: 'MantenimientoEmpresas.aspx/fnEliminaEmpresa',
@@ -129,7 +129,7 @@ function fnArmaTablaDetalle(sData) {
                 Tbody += '<td style="font-size:12px;" class="text-left">' + vestado + '</td>';
 
                 //Tbody += '<td class="text-center"><a href="#"  onclick="fnEditaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-primary btn-circle btn-sm" ><span style="position:static;" class="fas fa-pencil-alt"></span></a> </td>';
-                Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaEmpresa(\'' + fila[0] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
+                Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaEmpresa(\'' + fila[5] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
                 Tbody += '</tr>';
                 h++;
             }

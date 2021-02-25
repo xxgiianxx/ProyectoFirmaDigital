@@ -61,7 +61,8 @@
                                         <a href="#" class="btn btn-primary btn-user btn-block" id="btnIngresar">
                                             Ingresar
                                         </a>
-
+<%--<button  id="btncerticiado" runat="server" onclick="fnHola();" />--%>
+                                        <button type="button" id="btnCertificado" >procesa</button>
 
                                     </form>
                                     <hr>

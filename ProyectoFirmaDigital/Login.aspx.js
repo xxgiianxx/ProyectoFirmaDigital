@@ -7,6 +7,10 @@ $(this).on('click', '#btnIngresar',function() {
 
 });
 
+   $(this).on('click', '#btnCertificado', function () {
+        fnFirma();
+        return false;
+   });
 
 });
 function fnIngresar() {
@@ -21,6 +25,32 @@ function fnIngresar() {
         AjaxValida(vUsuario, vClave);
 
     }
+}
+
+function fnFirma() {
+    $.ajax({
+        type: 'POST',
+        url: 'Login.aspx/fnHola',
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.d.iTipoResultado == 1) {
+                bootbox.alert('firmado');
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "../Login.aspx";
+                });
+            } else {
+                bootbox.alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+
+    });
+
+
 }
 
 function AjaxValida(sUsuario, vClave) {
@@ -42,7 +72,7 @@ function AjaxValida(sUsuario, vClave) {
                        
                      window.location = "../MenuPrincipalCliente.aspx";
                     } else {
-                       window.location = "../HomeFirmante.aspx";//firmante
+                       window.location = "../AccesoFirmante.aspx";//firmante
                     }
                 }
 
