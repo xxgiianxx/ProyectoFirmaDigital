@@ -1,7 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="DocumentosFirmados.aspx.cs" Inherits="ProyectoFirmaDigital.DocumentosFirmados" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/HomeCliente.Master" AutoEventWireup="true" CodeBehind="DocumentosFirmados.aspx.cs" Inherits="ProyectoFirmaDigital.DocumentosFirmados" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+            <link rel="stylesheet" href="css/estadisticodocumentos.css"/>
 
               <div class="container-fluid" style="padding-left:0px;padding-right:0px;">
                     <div class="card shadow mb-4">
@@ -12,13 +13,19 @@
                          <div class="contenedorcirculos">
                             <div class="circ">
                                 <div id="circulo">
-                                    <h2>40</h2>
+                                    <h2 id="idDisponibles">40</h2>
+                                </div>
+                                <div style="text-align:center;">
+                                <span>Firmas Restantes</span>
                                 </div>
                             </div>
 
-                             <div class="circ2">
+                          <div class="circ2">
                                 <div id="circulo2">
-                                    <h2>60</h2>
+                                    <h2 id="idUsuadas">40</h2>
+                                </div>
+                                <div style="text-align:center;">
+                                <span>Firmas Usadas</span>
                                 </div>
                              </div>
                          </div>
@@ -27,13 +34,13 @@
 
                                 <div class="contDesde">
                                     <span>Desde</span>
-                                    <input type="date" name="desde" value="" />
+                                    <input type="date" name="desde" id="dtFechaInicio" />
 
                                 </div>
                                     
                                 <div class="contHasta">
                                     <span>Hasta</span>
-                                    <input type="date" name="hasta" value="" />
+                                    <input type="date" name="hasta" id="dtFechafin"/>
 
                                 </div>
                                 
@@ -55,13 +62,18 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th style="font-size:12px;" class="text-center">Código</th>
+<%--                                            <th style="font-size:12px;" class="text-center">Código</th>--%>
                                             <th style="font-size:12px;" class="text-center">Nombre</th>
                                             <th style="font-size:12px;" class="text-center">Descripción</th>
                                             <th style="font-size:12px;" class="text-center">Trab. Carga</th>
                                             <th style="font-size:12px;" class="text-center">Fecha Carga</th>
                                             <th style="font-size:12px;" class="text-center">Trab. Firma</th>
-                                            <th style="font-size:12px;" class="text-center">Estado</th>
+                                            <th style="font-size:12px;" class="text-center">Fecha Firma</th>
+                                            <th style="font-size:12px;" class="text-center">Cargado</th>
+                                            <th style="font-size:12px;" class="text-center">Firmado</th>
+
+
+<%--                                            <th style="font-size:12px;" class="text-center">Estado</th>--%>
                                             
                                         </tr>
 
@@ -79,6 +91,5 @@
 
 <script src="DocumentosFirmados.aspx.js"></script>
 
-    <link rel="stylesheet" href="css/estadisticodocumentos.css"/>
 </asp:Content>
 

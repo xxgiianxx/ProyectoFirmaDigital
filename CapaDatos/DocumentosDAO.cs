@@ -11,7 +11,7 @@ namespace CapaDatos
    public class DocumentosDAO
     {
 
-        public string fnListaDocumento(int idEmpresa)
+        public string fnListaDocumento(int idEmpresa,int iIdTrabajador)
         {
             SqlConnection conexion = null;
             SqlCommand cmd = null;
@@ -22,6 +22,7 @@ namespace CapaDatos
                 cmd = new SqlCommand("[dbo].[spListaDocumento]", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = idEmpresa;
+                cmd.Parameters.Add("@iIdTrabajador", SqlDbType.Int).Value = iIdTrabajador;
                 conexion.Open();
                 sResult = Convert.ToString(cmd.ExecuteScalar());
 
@@ -37,8 +38,112 @@ namespace CapaDatos
 
             return sResult;
         }
+        public string fnListaDocumentoFirmadosReporte(int idEmpresa,string sFechaInicio,string sFechafin)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            string sResult = "";
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("[dbo].[spListaDocumentoFirmadosReporte]", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = idEmpresa;
+                cmd.Parameters.Add("@dFechaInicio", SqlDbType.Date).Value = sFechaInicio;
+                cmd.Parameters.Add("@dFechaFin", SqlDbType.Date).Value = sFechafin;
+                conexion.Open();
+                sResult = Convert.ToString(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                sResult = ex.Message;
+            }
+            finally
+            {
+                conexion.Close();
+            }
 
+            return sResult;
+        }
+        public string fnFirmaDocumento(int iIdDocumento, string sRutafirma)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            string sResult = "";
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spFirmaDocumentos", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdDocumento", SqlDbType.Int).Value = iIdDocumento;
+                cmd.Parameters.Add("@vRutaFirma", SqlDbType.VarChar).Value = sRutafirma;
+                conexion.Open();
+                sResult = Convert.ToString(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                sResult = ex.Message;
+            }
+            finally
+            {
+                conexion.Close();
+            }
 
+            return sResult;
+        }
+
+        public string fnCantFirmasDisponibles(int idEmpresa)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            string sResult = "";
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spCantFirmasDisponibles", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = idEmpresa;
+
+                conexion.Open();
+                sResult = Convert.ToString(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                sResult = ex.Message;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return sResult;
+        }
+        public string fnCantFirmasUsadas(int idEmpresa)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            string sResult = "";
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spCantFirmasUsadas", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@iIdEmpresa", SqlDbType.Int).Value = idEmpresa;
+
+                conexion.Open();
+                sResult = Convert.ToString(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                sResult = ex.Message;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return sResult;
+        }
         public string fnListaDocumentoPendientes(int idEmpresa,int iIdTrabajador)
         {
             SqlConnection conexion = null;
@@ -126,7 +231,33 @@ namespace CapaDatos
             return sResult;
 
         }
+        //public int fnFirmaDocumento(int iIdDocumento)
+        //{
+        //    SqlConnection conexion = null;
+        //    SqlCommand cmd = null;
+        //    int sResult = -1;
+        //    try
+        //    {
+        //        conexion = Conexion.getInstance().ConexionBD();
+        //        cmd = new SqlCommand("spEliminaDocumento", conexion);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.Add("@iIdDocumento", SqlDbType.Int).Value = iIdDocumento;
+        //        conexion.Open();
+        //        sResult = Convert.ToInt32(cmd.ExecuteScalar());
 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        conexion.Close();
+        //    }
+
+        //    return sResult;
+
+        //}
         public int fnEliminaDocumento(int iIdDocumento)
         {
             SqlConnection conexion = null;

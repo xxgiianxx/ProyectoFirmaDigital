@@ -86,8 +86,9 @@ namespace ProyectoFirmaDigital
                 lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
                 string sUsuarioAuditoria = lstSeguridad[0].strUsuario;
                 int iIdEmpres = Convert.ToInt32(lstSeguridad[0].iIdEmpresa);
+                int iIdTrabajador = Convert.ToInt32(lstSeguridad[0].iIdTrabajador);
                 DocumentosDAO dao = new DocumentosDAO();
-                string sresult = dao.fnListaDocumento(iIdEmpres);
+                string sresult = dao.fnListaDocumento(iIdEmpres, iIdTrabajador);
                 oeAjax.iTipoResultado = 1;
                 oeAjax.sValor1 = sresult;
             }
@@ -155,7 +156,7 @@ namespace ProyectoFirmaDigital
             {
                 var vDocument = sNombreDocumento + '.' + sTipoArchivo;
 
-                var vresult = DownloadFile("ftp://ftp.site4now.net//documentos//cargados//", vDocument, "xxeguxx-001", "tornadesco.1", @AppDomain.CurrentDomain.BaseDirectory + "Documentos\\");
+                var vresult = DownloadFile("ftp://ftp.site4now.net"+ sRutaDocumento, vDocument, "xxeguxx-001", "tornadesco.1", @AppDomain.CurrentDomain.BaseDirectory + "Documentos\\");
                 oeAjax.iTipoResultado = 1;
                 oeAjax.sValor1 = vresult;
             }
@@ -170,7 +171,7 @@ namespace ProyectoFirmaDigital
 
 
         [WebMethod]
-        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         public static eAjax fnGuardaDocumento(string sNombreDocumento,string sDescripcion,int iTrabajador,string sNomDoc,string sFormato)
         {
             eAjax oeAjax = new eAjax();
@@ -279,8 +280,8 @@ namespace ProyectoFirmaDigital
             string ResponseDescription = "";
             string PureFileName = new FileInfo(FileNameToDownload).Name;
             string DownloadedFilePath = tempDirPath + PureFileName;
-            string downloadUrl = String.Format("{0}/{1}", FtpUrl, FileNameToDownload);
-            FtpWebRequest req = (FtpWebRequest)FtpWebRequest.Create(downloadUrl);
+          //  string downloadUrl = String.Format("{0}/{1}", FtpUrl, FileNameToDownload);
+            FtpWebRequest req = (FtpWebRequest)FtpWebRequest.Create(FtpUrl);
             req.Method = WebRequestMethods.Ftp.DownloadFile;
             req.Credentials = new NetworkCredential(userName, password);
             req.UseBinary = true;

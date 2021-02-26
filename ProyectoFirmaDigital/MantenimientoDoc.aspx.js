@@ -326,14 +326,14 @@ function fnArmaTablaDetalle(sData) {
                 //Tbody += '<td style="font-size:12px;" class="text-left" >' + fila[0] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[1] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[2] + '</td>';
-                Tbody += '<td style="font-size:12px;" class="text-left">' + fila[3] + '</td>';
+                //Tbody += '<td style="font-size:12px;" class="text-left">' + fila[3] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[4] + '</td>';
                 Tbody += '<td style="font-size:12px;" class="text-left">' + fila[5] + '</td>';
-                if (fila[6] == 'P') {
-                    Tbody += '<td style="font-size:12px;" class="text-left">' + 'Pendiente'+ '</td>';
-                } else {
-                    Tbody += '<td style="font-size:12px;" class="text-left">' + 'Firmado' + '</td>';
-                }
+                //if (fila[6] == 'P') {
+                //    Tbody += '<td style="font-size:12px;" class="text-left">' + 'Pendiente'+ '</td>';
+                //} else {
+                //    Tbody += '<td style="font-size:12px;" class="text-left">' + 'Firmado' + '</td>';
+                //}
                 Tbody += '<td class="text-center"><a href="#" onclick="fnExisteDocumentoPrincipal(\'' + fila[7] + '|' + fila[1] + '|' + fila[8] + '\'); return false;" class="btn"><img src="img/PDF.png" style="width: 80%;"></a></td>';
 
                 Tbody += '<td class="text-center"><a href="#"  onclick="fnEliminaDocumento(\'' + fila[0] + '|' + fila[7] + '\'); return false;" class="btn btn-danger btn-circle btn-sm" ><span style="position:static;" class="fas fa-trash"></span></a> </td>';
@@ -343,10 +343,10 @@ function fnArmaTablaDetalle(sData) {
 
             $("#dtTablaDocumento").html(Tbody);
         } else {
-            $("#dtTablaDocumento").html("<tr><td colspan='4'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
+            $("#dtTablaDocumento").html("");
         }
     } else {
-        $("#dtTablaDocumento").html("<tr><td colspan='4'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
+        $("#dtTablaDocumento").html("");
     }
 }
 

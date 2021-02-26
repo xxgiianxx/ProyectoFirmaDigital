@@ -1,11 +1,22 @@
 ﻿let sCodigoPlan = '';
+var table;
 $(document).ready(function () {
 
+    //$('#dataTable').DataTable({
+    //    responsive: true,
+    //    language: {
+    //        url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json' //Ubicacion del archivo con el json del idioma.
+    //    }
+    //});
     fnListaPlanes();
     $('.Editar').css('display', 'none');
     $('.Registrar').css('display', '');
 
 });
+
+
+ 
+
 
 $(document).on('click', '#btnNuevo', function () {
     $('#idTitulo').html('Registrar Plan');
@@ -106,7 +117,7 @@ function fnListaPlanes() {
                 fnArmaTablaDetalle(data.d.sValor1);
             } else if (data.d.iTipoResultado == 99) {
                 bootbox.alert(data.d.sMensajeError, function () {
-                    window.location = "../Acceso.aspx";
+                    window.location = "login.aspx";
                 });
             } else {
                 bootbox.alert(data.d.sMensajeError);
@@ -212,4 +223,22 @@ function fnArmaTablaDetalle(sData) {
     } else {
         $("#dtTablaPlanes").html("<tr><td colspan='6'><b>NO SE ENCONTRARON RESULTADOS</b></td></tr>");
     }
+
 }
+
+//function fnCambiaLenguaje() {
+//    $('#dtTablaPlanes').dataTable({
+//        "language": {
+//            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+//        },
+//        dom: 'Bfrtip',
+//        buttons: [
+//            'copy', 'csv', 'excel', 'pdf', 'print'
+//        ]
+//    });
+//    //$('#dtTablaPlanes').DataTable({
+//    //    "language": {
+//    //        "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+//    //    }
+//    //});
+//}

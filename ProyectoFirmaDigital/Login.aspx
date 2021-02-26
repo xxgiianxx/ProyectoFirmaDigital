@@ -62,7 +62,7 @@
                                             Ingresar
                                         </a>
 <%--<button  id="btncerticiado" runat="server" onclick="fnHola();" />--%>
-                                        <button type="button" id="btnCertificado" >procesa</button>
+<%--                                        <button type="button" id="btnCertificado" >procesa</button>--%>
 
                                     </form>
                                     <hr>

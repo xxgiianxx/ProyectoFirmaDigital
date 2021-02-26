@@ -17,6 +17,8 @@ namespace CapaEntidad
         public string sNombreEmpresa { get; set; }
 
         public int iIdTrabajador { get; set; }
+
+        public string sRutaCertificado { get; set; }
     
     
     }

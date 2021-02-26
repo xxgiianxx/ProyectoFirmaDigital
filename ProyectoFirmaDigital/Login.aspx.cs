@@ -18,19 +18,19 @@ namespace ProyectoFirmaDigital
         {
 
         }
-        [WebMethod]
-        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static eAjax  fnHola() {
-            eAjax oAjax = new eAjax();
+        //[WebMethod]
+        //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        //public static eAjax  fnHola() {
+        //    eAjax oAjax = new eAjax();
 
-            var certificado = new Certificado(@"c:\demos\certificado.pfx");
-            var firmante = new Firmante(certificado);
-            firmante.Firmar(@"c:\demos\documento.pdf", @"c:\demos\documento-firmado.pdf");
+        //    var certificado = new Certificado(@"c:\demos\certificado.pfx");
+        //    var firmante = new Firmante(certificado);
+        //    firmante.Firmar(@"c:\demos\documento.pdf", @"c:\demos\documento-firmado.pdf");
 
-            oAjax.iTipoResultado = 1;
-            return oAjax;
+        //    oAjax.iTipoResultado = 1;
+        //    return oAjax;
 
-        }
+        //}
 
       
 
@@ -61,6 +61,7 @@ namespace ProyectoFirmaDigital
                 oe.iIdEmpresa = Convert.ToInt32(vsplit[5]);
                 oe.sNombreEmpresa = Convert.ToString(vsplit[6]);
                 oe.iIdTrabajador= Convert.ToInt32(vsplit[7]);
+                oe.sRutaCertificado = Convert.ToString(vsplit[8]);
                 leSeguridad.Add(oe);
                 HttpContext.Current.Session["leSeguridad"] = leSeguridad;
                 oAjax.sValor1 = vsplit[3]+'|'+ vsplit[4];

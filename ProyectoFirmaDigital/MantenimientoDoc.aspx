@@ -24,10 +24,10 @@
 <%--                                            <th style="font-size:12px;" class="text-center">Código</th>--%>
                                             <th style="font-size:12px;" class="text-center">Nombre</th>
                                             <th style="font-size:12px;" class="text-center">Descripción</th>
-                                            <th style="font-size:12px;" class="text-center">Trab. Carga</th>
+<%--                                            <th style="font-size:12px;" class="text-center">Trab. Carga</th>--%>
                                             <th style="font-size:12px;" class="text-center">Fecha Carga</th>
                                             <th style="font-size:12px;" class="text-center">Trab. Firma</th>
-                                            <th style="font-size:12px;" class="text-center">Estado</th>
+<%--                                            <th style="font-size:12px;" class="text-center">Estado</th>--%>
                                             <th style="font-size:12px;" class="text-center">Documento</th>
                                             <th style="width:0.8%;font-size:12px" class="text-center" > Eliminar</th>
 <%--                                            <th style="font-size:12px;" class="text-center">Eliminar</th>--%>
