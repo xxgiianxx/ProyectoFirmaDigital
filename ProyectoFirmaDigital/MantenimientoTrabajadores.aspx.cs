@@ -65,7 +65,7 @@ namespace ProyectoFirmaDigital
             List<eSeguridad> lstSeguridad = new List<eSeguridad>();
             lstSeguridad = (List<eSeguridad>)HttpContext.Current.Session["leSeguridad"];
             string sUsuarioAuditoria = lstSeguridad[0].strUsuario;
-            int iIdCargo = Convert.ToInt32(lstSeguridad[0].iIdCargo);
+            int iIdCargo = Convert.ToInt32(lstSeguridad[0].iIdrol);
             string iresult = dao.fnListaRoles(iIdCargo);
             oAjax.iTipoResultado = 1;
             oAjax.sValor1 = iresult;
