@@ -220,6 +220,7 @@ namespace ProyectoFirmaDigital
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("aquitusuario", "aquituclave");
             MailMessage mail = new MailMessage(sCorreo, sCorreo, "Documento firmado", sDescripcion);
             mail.BodyEncoding = UTF8Encoding.UTF8;
             mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
