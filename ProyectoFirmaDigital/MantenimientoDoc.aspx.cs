@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
@@ -172,6 +175,109 @@ namespace ProyectoFirmaDigital
 
         [WebMethod]
         [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        public static eAjax fnEnviarDocumento(string sRutaDocumento, string sNombreDocumento, string sTipoArchivo,string sCorreo, string sDescripcion)
+        {
+            eAjax oeAjax = new eAjax();
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            context.Response.ContentType = "application/json";
+            if (HttpContext.Current.Session["leSeguridad"] == null)
+            {
+                oeAjax.iTipoResultado = 99;
+                oeAjax.sMensajeError = "Fin Session";
+                return oeAjax;
+            }
+            try
+            {
+                var vDocument = sNombreDocumento + '.' + sTipoArchivo;
+                var vresult = DownloadFileNODELETE("ftp://ftp.site4now.net" + sRutaDocumento, sNombreDocumento, "xxeguxx-001", "tornadesco.1", @AppDomain.CurrentDomain.BaseDirectory + "Documentos\\");
+                if (vresult != "") {
+                    EnviarCorreo(sCorreo, sDescripcion, sNombreDocumento);
+                }
+
+                oeAjax.iTipoResultado = 1;
+                oeAjax.sValor1 = vresult;
+            }
+            catch (Exception ex)
+            {
+                oeAjax.sMensajeError = ex.Message;
+
+            }
+
+            return oeAjax;
+        }
+        [WebMethod]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        public static void EnviarCorreo(string sCorreo,string sDescripcion,string sNombreDocumento) {
+
+            var vRutadocumento = @AppDomain.CurrentDomain.BaseDirectory + "Documentos\\" + sNombreDocumento;
+            string filename = vRutadocumento;
+            Attachment data = new Attachment(filename, MediaTypeNames.Application.Octet);
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            // utilizamos el servidor SMTP de gmail
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            MailMessage mail = new MailMessage(sCorreo, sCorreo, "Documento firmado", sDescripcion);
+            mail.BodyEncoding = UTF8Encoding.UTF8;
+            mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            mail.Attachments.Add(data);
+            client.Send(mail);
+            mail.Dispose();
+            File.Delete(vRutadocumento);
+        }
+        public static string DownloadFileNODELETE(string FtpUrl, string FileNameToDownload,
+string userName, string password, string tempDirPath)
+        {
+            string file = "";
+            string ResponseDescription = "";
+            string PureFileName = new FileInfo(FileNameToDownload).Name;
+            string DownloadedFilePath = tempDirPath + PureFileName;
+            //string downloadUrl = String.Format("{0}/{1}", FtpUrl, FileNameToDownload);
+            FtpWebRequest req = (FtpWebRequest)FtpWebRequest.Create(FtpUrl);
+            req.Method = WebRequestMethods.Ftp.DownloadFile;
+            req.Credentials = new NetworkCredential(userName, password);
+            req.UseBinary = true;
+            req.Proxy = null;
+            try
+            {
+                FtpWebResponse response = (FtpWebResponse)req.GetResponse();
+                Stream stream = response.GetResponseStream();
+                byte[] buffer = new byte[2048];
+                string pdfBase64 = "";
+                using (FileStream fs = new FileStream(DownloadedFilePath, FileMode.Create)) { 
+                
+                    int ReadCount = stream.Read(buffer, 0, buffer.Length);
+                    while (ReadCount > 0)   {
+                    fs.Write(buffer, 0, ReadCount);
+                    ReadCount = stream.Read(buffer, 0, buffer.Length);
+                   }
+
+                ResponseDescription = response.StatusDescription;
+                fs.Close();
+                stream.Close();
+                stream.Dispose();
+                byte[] pdfBytes = File.ReadAllBytes(DownloadedFilePath);
+                 pdfBase64 = Convert.ToBase64String(pdfBytes);
+                
+                }
+
+
+
+                
+                file = pdfBase64;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return file;
+        }
+        [WebMethod]
+        [System.Web.Script.Services.ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         public static eAjax fnGuardaDocumento(string sNombreDocumento,string sDescripcion,int iTrabajador,string sNomDoc,string sFormato)
         {
             eAjax oeAjax = new eAjax();
@@ -199,9 +305,9 @@ namespace ProyectoFirmaDigital
                 if (i >= 1) { 
                    UploadFTP(vruta, "ftp://ftp.site4now.net/", "xxeguxx-001", "tornadesco.1");
 
-                    File.Delete(vruta);
+                  
                 }
-
+                File.Delete(vruta);
                 oeAjax.iTipoResultado = 1;
             }
             catch (Exception ex)
@@ -280,6 +386,7 @@ namespace ProyectoFirmaDigital
             string ResponseDescription = "";
             string PureFileName = new FileInfo(FileNameToDownload).Name;
             string DownloadedFilePath = tempDirPath + PureFileName;
+            string pdfBase64 = "";
           //  string downloadUrl = String.Format("{0}/{1}", FtpUrl, FileNameToDownload);
             FtpWebRequest req = (FtpWebRequest)FtpWebRequest.Create(FtpUrl);
             req.Method = WebRequestMethods.Ftp.DownloadFile;
@@ -291,21 +398,27 @@ namespace ProyectoFirmaDigital
                 FtpWebResponse response = (FtpWebResponse)req.GetResponse();
                 Stream stream = response.GetResponseStream();
                 byte[] buffer = new byte[2048];
-                FileStream fs = new FileStream(DownloadedFilePath, FileMode.Create);
-                int ReadCount = stream.Read(buffer, 0, buffer.Length);
-                while (ReadCount > 0)
-                {
+                using (FileStream fs = new FileStream(DownloadedFilePath, FileMode.Create)) { 
+                   int ReadCount = stream.Read(buffer, 0, buffer.Length);
+                    while (ReadCount > 0) {
                     fs.Write(buffer, 0, ReadCount);
                     ReadCount = stream.Read(buffer, 0, buffer.Length);
-                }
+                   }
+                
+
                 ResponseDescription = response.StatusDescription;
                 fs.Close();
                 stream.Close();
 
                 byte[] pdfBytes = File.ReadAllBytes(DownloadedFilePath);
-                string pdfBase64 = Convert.ToBase64String(pdfBytes);
-
+                pdfBase64 = Convert.ToBase64String(pdfBytes);
+                
+                }
+                   
                 File.Delete(DownloadedFilePath);
+
+
+
                 file = pdfBase64;
 
             }

@@ -98,7 +98,11 @@ function fnUpdater(sControl, sCarpeta, sControlHidden, sControltxt) {
 }
 
 $(document).on('click', '#btnNuevo', function () {
-
+    $('#txtNombreDocumento').val();
+    $('#txtDescripcion').val();
+    $('#cmdTrabajador').val('');
+    $('#cmdTrabajador').change();
+    $('#txtRutaDocumentoNuevo').val('');
     $('#RegistroDocumento').modal('show');
     $('#idTitulo').html('Registro Documento');
     return false;

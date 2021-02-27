@@ -349,6 +349,7 @@ namespace ProyectoFirmaDigital
                 string userName, string password, string tempDirPath)
         {
             string file = "";
+            string pdfBase64 = "";
             string ResponseDescription = "";
             string PureFileName = new FileInfo(FileNameToDownload).Name;
             string DownloadedFilePath = tempDirPath + PureFileName;
@@ -363,21 +364,22 @@ namespace ProyectoFirmaDigital
                 FtpWebResponse response = (FtpWebResponse)req.GetResponse();
                 Stream stream = response.GetResponseStream();
                 byte[] buffer = new byte[2048];
-                FileStream fs = new FileStream(DownloadedFilePath, FileMode.Create);
-                int ReadCount = stream.Read(buffer, 0, buffer.Length);
-                while (ReadCount > 0)
-                {
-                    fs.Write(buffer, 0, ReadCount);
-                    ReadCount = stream.Read(buffer, 0, buffer.Length);
-                }
+                using (FileStream fs = new FileStream(DownloadedFilePath, FileMode.Create)) { 
+                    int ReadCount = stream.Read(buffer, 0, buffer.Length);
+                       while (ReadCount > 0) {
+                     fs.Write(buffer, 0, ReadCount);
+                      ReadCount = stream.Read(buffer, 0, buffer.Length);
+                   }
+
                 ResponseDescription = response.StatusDescription;
                 fs.Close();
                 stream.Close();
+                 byte[] pdfBytes = File.ReadAllBytes(DownloadedFilePath);
+                 pdfBase64 = Convert.ToBase64String(pdfBytes);
+                }
+                 File.Delete(DownloadedFilePath);
 
-                byte[] pdfBytes = File.ReadAllBytes(DownloadedFilePath);
-                string pdfBase64 = Convert.ToBase64String(pdfBytes);
-
-                File.Delete(DownloadedFilePath);
+             
                 file = pdfBase64;
 
             }

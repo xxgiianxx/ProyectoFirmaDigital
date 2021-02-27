@@ -1,10 +1,54 @@
 ﻿
+var sDatos = '';
 
 $(document).ready(function () {
+    $("#dataTable").dataTable({
+        "bPaginate": true,
+        "bFilter": false,
+        "bInfo": false,
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "bJQueryUI": true,
+        "iDisplayLength": 1000,
+        "bDestroy": true
+    });
+
+    $("#dtFechaInicio").val(fnFechaActualYMD());
+    $("#dtFechafin").val(fnFechaActualYMD());
+
     fnFirmasDisponibles();
     fnFirmasUsadasDoc();
-});
 
+
+
+
+
+});
+function fnFechaActualYMD() {
+    var f = new Date();
+    let iMes = f.getMonth() + 1;
+    let sMes = "00";
+    sMes = iMes + "";
+    if (iMes < 10) {
+        sMes = "0" + iMes;
+    }
+
+    let iDia = f.getDate();
+    let sDia = "00";
+    sDia = iDia + "";
+    if (iDia < 10) {
+        sDia = "0" + iDia;
+    }
+    iIdTarea = 0;
+    return f.getFullYear() + "-" + sMes + "-" + sDia;
+
+}
+
+$(document).on('change', '#dtFechaInicio', function () {
+    $("#dtFechafin").val($(this).val());
+    document.getElementById("dtFechafin").setAttribute('min', $(this).val());
+});
 
 $(document).on('click', '#btnFiltrar', function () {
 
@@ -133,6 +177,9 @@ function fnArmaTablaDetalle(sData) {
                 Tbody += '<td style="font-size:12px;" class="text-center">' + fila[9] + '</td>';
                 Tbody += '<td class="text-center"><a href="#" onclick="fnExisteDocumentoPrincipal(\'' + fila[7] + '|' + fila[1] + '|' + fila[8] + '\'); return false;" class="btn"><img src="img/PDF.png" style="width:60%;"></a></td>';
                 Tbody += '<td class="text-center"><a href="#" onclick="fnExisteDocumentoPrincipal(\'' + fila[10] + '|' + fila[1] + '|' + fila[8] + '\'); return false;" class="btn"><img src="img/PDF.png" style="width:60%;"></a></td>';
+                //Tbody += '<td class="text-center"><a href="#" onclick="fnEnviarDocumentov2(\'' + fila[10] + '|' + fila[1] + '|' + fila[8] + '\'); return false;" class="btn"><img src="img/PDF.png" style="width:60%;"></a></td>';<i class="fas fa-paper-plane"></i>
+                Tbody += '<td class="text-center"><a href="#" class="btn btn-sm btn-primary" onclick="fnEnviarDocumentov2(\'' + fila[10] + '|' + fila[1] + '|' + fila[8] + '\'); return false;"><i class="fas fa-paper-plane fa-sm text-white-50"></i></a></td> ';
+
                 Tbody += '</tr>';
                 h++;
             }
@@ -146,6 +193,68 @@ function fnArmaTablaDetalle(sData) {
     }
 }
 
+function fnEnviarDocumentov2(sParametro) {
+    sDatos = '';
+    sDatos = sParametro;
+    $('#EnvioCorreo').modal('show');
+
+}
+
+$(document).on('click', '#btEnviar', function () {
+
+    var vCorreo = $('#txtCorreo').val();
+    var vDescripcion = $('#Descripcion').val();
+
+    if (vCorreo == '' || vDescripcion == '') {
+        bootbox.alert('Complete Los Campos');
+        return false;
+    } else {
+        emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+        if (emailRegex.test(vCorreo) == false) {
+            bootbox.alert('Digite el correo Correctamente!');
+            return false;
+        } else {
+            fnEnviarDocumento(sDatos, vCorreo, vDescripcion);
+
+        }
+
+    }
+
+
+});
+
+
+function fnEnviarDocumento(sParametro,sCorreo,sDescripcion) {
+    var splits = sParametro.split('|');
+    var vsplit = splits[0].split('//documentos//firmados//');
+    var sParam = "{'sRutaDocumento':'" + splits[0] + "','sNombreDocumento':'" + vsplit[1] + "','sTipoArchivo':'" + splits[2] + "','sCorreo':'" + sCorreo + "','sDescripcion':'" + sDescripcion+"'}";
+    $.ajax({
+        type: 'POST',
+        url: 'MantenimientoDoc.aspx/fnEnviarDocumento',
+        data: sParam,
+        contentType: 'application/json; utf-8',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            if (data.d.iTipoResultado == "1") {
+                $('#EnvioCorreo').modal('hide');
+                bootbox.alert('Documento Enviado')
+                $('#txtCorreo').val('');
+                $('#Descripcion').val('');
+                
+            } else if (data.d.iTipoResultado == 99) {
+                bootbox.alert(data.d.sMensajeError, function () {
+                    window.location = "login.aspx";
+                });
+            } else {
+                alert(data.d.sMensajeError);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+    });
+
+}
 function fnExisteDocumentoPrincipal(sParametro) {
     var sData;
     var splits = sParametro.split('|');

@@ -72,11 +72,12 @@ namespace CapaDatos
             string sResult = "";
             try
             {
+                var vsplit = sRutafirma.Replace("\\\\", "\\");
                 conexion = Conexion.getInstance().ConexionBD();
                 cmd = new SqlCommand("spFirmaDocumentos", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@iIdDocumento", SqlDbType.Int).Value = iIdDocumento;
-                cmd.Parameters.Add("@vRutaFirma", SqlDbType.VarChar).Value = sRutafirma;
+                cmd.Parameters.Add("@vRutaFirma", SqlDbType.VarChar).Value = vsplit;
                 conexion.Open();
                 sResult = Convert.ToString(cmd.ExecuteScalar());
             }
